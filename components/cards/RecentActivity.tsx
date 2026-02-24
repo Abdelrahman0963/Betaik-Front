@@ -2,7 +2,7 @@ import React from 'react'
 
 const RecentActivity: React.FC = () => {
     return (
-        <div className="rounded-lg bg-white p-6 shadow-md w-1/3">
+        <div className="rounded-lg bg-white p-6 shadow-md w-full sm:w-1/3">
             <h2 className="text-lg font-semibold ">Recent Activity</h2>
             <p className="text-gray-600">Latest updates</p>
             <ul>

@@ -32,11 +32,11 @@ const chartData = [
     { date: "2024-04-01", Views: 0, Compares: 222, Saves: 120 },
     { date: "2024-04-02", Views: 3, Compares: 180, Saves: 90 },
     { date: "2024-04-03", Views: 5, Compares: 120, Saves: 80 },
-    { date: "2024-04-04", Views: 10, Compares: 260, Saves: 110 },
+    { date: "2024-04-04", Views: 1000, Compares: 260, Saves: 110 },
     { date: "2024-04-05", Views: 30, Compares: 290, Saves: 130 },
     { date: "2024-04-06", Views: 40, Compares: 340, Saves: 150 },
     { date: "2024-04-07", Views: 90, Compares: 180, Saves: 95 },
-    { date: "2024-04-08", Views: 80, Compares: 320, Saves: 170 },
+    { date: "2024-04-08", Views: 10, Compares: 3020, Saves: 170 },
     { date: "2024-04-09", Views: 70, Compares: 110, Saves: 40 },
     { date: "2024-04-10", Views: 100, Compares: 190, Saves: 70 },
     { date: "2024-04-11", Views: 100, Compares: 350, Saves: 110 },
@@ -151,7 +151,7 @@ export function ChartAreaInteractive() {
             <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
                 <ChartContainer
                     config={chartConfig}
-                    className="aspect-auto h-140 w-full"
+                    className="aspect-auto h-96 w-full"
                 >
                     <AreaChart data={filteredData}>
                         <defs>
