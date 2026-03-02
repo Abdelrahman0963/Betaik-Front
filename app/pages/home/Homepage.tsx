@@ -2,6 +2,7 @@
 import RecentActivity from "@/components/cards/RecentActivity"
 import { ChartAreaInteractive } from "@/components/graph/ChartAreaInteractive"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 const HeroCards = dynamic(() => import("@/components/cards/HeroCards"), { ssr: false })
 export default function Homepage() {
 
@@ -17,8 +18,8 @@ export default function Homepage() {
               </div>
               <div className="flex items-center justify-between ">
                 <div className="flex items-center gap-4">
-                  <button className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1 cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]"><span className="text-2xl">+</span>  Add New Drom</button>
-                  <button className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1  cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]"><span className="text-2xl">+</span> Add Payment Plan</button>
+                  <Link href="/accountInfo" className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1 cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]"><span className="text-2xl">+</span>  Add New Drom</Link>
+                  <Link href="/paymentPlan" className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1  cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]"><span className="text-2xl">+</span> Add Payment Plan</Link>
                 </div>
               </div>
             </div>
