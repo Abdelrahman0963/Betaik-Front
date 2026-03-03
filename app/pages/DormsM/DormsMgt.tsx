@@ -12,7 +12,6 @@ const DormsMgt = () => {
                                 <p className="text-muted-foreground">Manage all payment plans and special offers for your dorms.</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -54,14 +54,14 @@ const AccountInfoForm = () => {
                 {/* First & Last Name */}
                 <div className="flex flex-col gap-4 md:flex-row">
                     <div className="flex flex-col gap-2 flex-1">
-                        <label htmlFor="firstName" className="text-sm font-medium">
+                        <label htmlFor="firstName" className="text-sm font-medium ml-1">
                             First Name
                         </label>
                         <input
                             id="firstName"
                             {...register("firstName")}
                             placeholder="first name"
-                            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="border border-blue-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         {errors.firstName && (
                             <p className="text-red-500 text-sm">
@@ -70,15 +70,15 @@ const AccountInfoForm = () => {
                         )}
                     </div>
 
-                    <div className="flex flex-col gap-1 flex-1">
-                        <label htmlFor="lastName" className="text-sm font-medium">
+                    <div className="flex flex-col gap-2 flex-1">
+                        <label htmlFor="lastName" className="text-sm ml-1 font-medium">
                             Last Name
                         </label>
                         <input
                             id="lastName"
                             placeholder="last name"
                             {...register("lastName")}
-                            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="border border-blue-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         {errors.lastName && (
                             <p className="text-red-500 text-sm">
@@ -89,8 +89,8 @@ const AccountInfoForm = () => {
                 </div>
 
                 {/* Email */}
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="email" className="text-sm font-medium">
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="text-sm font-medium ml-1">
                         Email
                     </label>
                     <input
@@ -98,7 +98,7 @@ const AccountInfoForm = () => {
                         type="email"
                         placeholder="email"
                         {...register("email")}
-                        className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="border border-blue-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     {errors.email && (
                         <p className="text-red-500 text-sm">
@@ -116,8 +116,8 @@ const AccountInfoForm = () => {
                             type="button"
                             onClick={() => setMode("separate")}
                             className={`cursor-pointer text-sm px-4 py-2 rounded-md transition ${mode === "separate"
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-300 text-gray-600"
+                                ? "bg-blue-100 text-blue-600 border border-blue-500"
+                                : "bg-gray-100 text-gray-600"
                                 }`}
                         >
                             Call & WhatsApp
@@ -127,8 +127,8 @@ const AccountInfoForm = () => {
                             type="button"
                             onClick={() => setMode("both")}
                             className={`cursor-pointer text-sm px-4 py-2 rounded-md transition ${mode === "both"
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-300 text-gray-600"
+                                ? "bg-blue-100 text-blue-600 border border-blue-500"
+                                : "bg-gray-100 text-gray-600"
                                 }`}
                         >
                             Both
@@ -139,14 +139,14 @@ const AccountInfoForm = () => {
                         <div className="flex flex-row items-center w-full gap-4 justify-center">
 
                             {/* Call Phone */}
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="callphone" className="text-sm font-medium">
+                            <div className="flex flex-col gap-2 w-full">
+                                <label htmlFor="callphone" className="text-sm font-medium ml-1">
                                     Call Phone
                                 </label>
                                 <input
                                     id="callphone"
                                     {...register("callphone")}
-                                    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="border border-blue-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                                 {errors.callphone && (
                                     <p className="text-red-500 text-sm">
@@ -156,14 +156,14 @@ const AccountInfoForm = () => {
                             </div>
 
                             {/* WhatsApp */}
-                            <div className="flex flex-col gap-1 w-full">
-                                <label htmlFor="whatsapp" className="text-sm font-medium">
+                            <div className="flex flex-col gap-2 w-full">
+                                <label htmlFor="whatsapp" className="text-sm font-medium ml-1">
                                     WhatsApp
                                 </label>
                                 <input
                                     id="whatsapp"
                                     {...register("whatsapp")}
-                                    className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="border border-blue-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                                 {errors.whatsapp && (
                                     <p className="text-red-500 text-sm">
@@ -174,8 +174,8 @@ const AccountInfoForm = () => {
 
                         </div>
                     ) : (
-                        <div className="flex flex-col gap-1 w-full">
-                            <label className="text-sm font-medium">
+                        <div className="flex flex-col gap-2 w-full">
+                            <label className="text-sm font-medium ml-1">
                                 Phone (Call & WhatsApp)
                             </label>
                             <input

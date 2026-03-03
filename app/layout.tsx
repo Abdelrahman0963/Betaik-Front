@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable}  bg-background font-roboto antialiased`}
+        className={`${roboto.variable}  bg-white font-roboto antialiased`}
       >
         <SidebarProvider style={sidebarStyles}>
           <AppSidebar />
