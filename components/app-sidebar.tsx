@@ -42,7 +42,7 @@ const data = {
     },
     {
       title: "Dorms Management",
-      url: "/dorms",
+      url: "/dorms-mgt",
       icon: LuBuilding2,
     },
     {

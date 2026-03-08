@@ -1,11 +1,11 @@
+import CompOrDrom from '@/app/pages/CompoundsOrDroms/CompOrDrom'
 import React from 'react'
-import DormsMgt from '@/app/pages/DormsM/DormsMgt'
 
 
 const page = () => {
     return (
         <section className='flex flex-1 flex-col '>
-            <DormsMgt />
+            <CompOrDrom />
         </section>
     )
 }
