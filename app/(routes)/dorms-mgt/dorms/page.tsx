@@ -1,11 +1,5 @@
-import React from 'react'
+import Dorms from "@/components/University/Droms/Dorms"
 
-const page = () => {
-    return (
-        <div>
-            <h1>Dorms</h1>
-        </div>
-    )
+export default function DormsPage() {
+  return <Dorms />
 }
-
-export default page

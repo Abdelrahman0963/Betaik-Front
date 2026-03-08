@@ -208,7 +208,7 @@ export const useFileUpload = (
 
           // Skip duplicate files silently
           if (isDuplicate) {
-            return
+            continue
           }
         }
 
@@ -243,7 +243,7 @@ export const useFileUpload = (
           const newFiles = !multiple
             ? validFiles
             : [...prev.files, ...validFiles]
-          onFilesChange?.(newFiles)
+          queueMicrotask(() => onFilesChange?.(newFiles))
           return {
             ...prev,
             files: newFiles,

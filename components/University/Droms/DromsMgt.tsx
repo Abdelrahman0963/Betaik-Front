@@ -1,5 +1,5 @@
 "use client"
-import PropertyFilters from "@/components/Filters/PropertyFilters";
+import StudentsHousingFilters from "@/components/Filters/StudentsHousingFilters";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link";
 
@@ -30,7 +30,7 @@ const DormsMgt = () => {
                                     <Link href="/dorms-mgt/student-housing" className="sm:px-4 sm:text-[1rem] text-sm px-2 py-1  cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]"><span className="text-2xl">+</span> Add New Student Housing</Link>
                                 </div>
                                 <div className="flex flex-col items-start gap-2 w-full">
-                                    <PropertyFilters />
+                                    <StudentsHousingFilters />
                                 </div>
                             </div>
                         </div>

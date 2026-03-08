@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
+import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
@@ -33,13 +34,15 @@ export default function RootLayout({
       <body
         className={`${roboto.variable}  bg-white font-roboto antialiased`}
       >
-        <SidebarProvider style={sidebarStyles}>
-          <AppSidebar />
-          <SidebarInset>
-            <SiteHeader />
-            {children}
-          </SidebarInset>
-        </SidebarProvider>
+        <QueryProvider>
+          <SidebarProvider style={sidebarStyles}>
+            <AppSidebar />
+            <SidebarInset>
+              <SiteHeader />
+              {children}
+            </SidebarInset>
+          </SidebarProvider>
+        </QueryProvider>
         <Toaster position="top-center" reverseOrder={false} />
       </body>
     </html>

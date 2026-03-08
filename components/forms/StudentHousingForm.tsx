@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -27,6 +27,24 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>
 
+const DEFAULT_FORM_VALUES: FormValues = {
+    name: "",
+    photo: "",
+    Description: "",
+}
+
+function getStoredHousingData(): unknown[] {
+    if (typeof window === "undefined") return []
+    try {
+        const raw = localStorage.getItem("studentHousingData")
+        if (!raw) return []
+        const parsed = JSON.parse(raw)
+        return Array.isArray(parsed) ? parsed : [parsed]
+    } catch {
+        return []
+    }
+}
+
 const StudentHousingForm = () => {
     const [compound, setCompound] = useState<string | null>(null)
     const [gender, setGender] = useState<string | null>(null)
@@ -36,103 +54,78 @@ const StudentHousingForm = () => {
     const [patternKey, setPatternKey] = useState(0)
     const router = useRouter()
 
-    const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormValues>({
+    const { register, handleSubmit, formState: { errors }, reset, setValue, getValues } = useForm<FormValues>({
         resolver: zodResolver(schema),
         mode: "onBlur",
+        defaultValues: DEFAULT_FORM_VALUES,
     })
 
     React.useEffect(() => {
-        setValue("photo", files[0]?.file?.name ?? "", { shouldValidate: true })
+        const photoValue = files[0]?.file?.name ?? ""
+        setValue("photo", photoValue, { shouldValidate: true })
     }, [files, setValue])
 
-    const handleClose = () => {
-        reset({ name: "", photo: "", Description: "" })
+    const handleClose = useCallback(() => {
+        reset(DEFAULT_FORM_VALUES)
         setCompound(null)
         setGender(null)
         setArea(null)
         setDistricts(null)
         setFiles([])
-        setPatternKey(prev => prev + 1)
-    }
+        setPatternKey((prev) => prev + 1)
+    }, [reset])
 
-    const onSubmit = (data: FormValues) => {
-        const fullData = {
-            ...data,
-            compound,
-            gender, // حيكون القيمة الجديدة زي ما اخترت
-            area,
-            districts,
-            files: files.map(f => ({
-                name: f.file.name,
-                preview: f.preview
-            })),
-            state: "Active"
-        }
+    const onFilesChange = useCallback((newFiles: FileWithPreview[]) => {
+        setFiles(newFiles)
 
-        // لو عايز تضيف للقديم:
-        const existingData = localStorage.getItem("studentHousingData")
-        const parsedData = existingData ? JSON.parse(existingData) : []
+    }, [])
 
-        // هنا لو عايز تسيب القديم وتضيف الجديد:
-        parsedData.push(fullData)
-
-        // لو عايز تمسح القديم وتضيف الجديد بس:
-        // const parsedData = [fullData]
-
-
-        // Reset form بعد الحفظ
-        handleClose()
-
-        toast.success('Successfully toasted!')
-
-        localStorage.setItem("studentHousingData", JSON.stringify(parsedData))
-        router.push("/dorms-mgt")
-    }
-
-    const handleDraft = () => {
-        const formValues = {
-            name: (document.querySelector('input[name="name"]') as HTMLInputElement)?.value || "",
-            Description: (document.querySelector('input[name="Description"]') as HTMLInputElement)?.value || "",
+    const buildPayload = useCallback(
+        (state: "Active" | "Draft") => ({
+            name: getValues("name"),
+            Description: getValues("Description"),
             photo: files[0]?.file?.name ?? "",
-        }
-
-        const fullData = {
-            ...formValues,
             compound,
             gender,
             area,
             districts,
-            files: files.map(f => ({
+            files: files.map((f) => ({
                 name: f.file.name,
-                preview: f.preview
+                preview: f.preview,
             })),
-            state: "Draft"
-        }
+            state,
+        }),
+        [compound, gender, area, districts, files, getValues]
+    )
 
-        const existingData = localStorage.getItem("studentHousingData")
+    const onSubmit = useCallback(
+        (data: FormValues) => {
+            const fullData = { ...data, ...buildPayload("Active") }
+            const parsedData = getStoredHousingData()
+            parsedData.push(fullData)
+            localStorage.setItem("studentHousingData", JSON.stringify(parsedData))
+            handleClose()
+            toast.success("Successfully published!")
+            router.push("/dorms-mgt")
+        },
+        [buildPayload, handleClose, router]
+    )
 
-        let parsedData = []
-
-        if (existingData) {
-            const parsed = JSON.parse(existingData)
-
-            parsedData = Array.isArray(parsed) ? parsed : [parsed]
-        }
-
+    const handleDraft = useCallback(() => {
+        const fullData = buildPayload("Draft")
+        const parsedData = getStoredHousingData()
         parsedData.push(fullData)
-
         localStorage.setItem("studentHousingData", JSON.stringify(parsedData))
-
-        toast.success("Successfully Drafted!")
+        toast.success("Draft saved!")
         router.push("/dorms-mgt")
-    }
+    }, [buildPayload, router])
     return (
         <div className="flex flex-col gap-4 py-4 px-5 md:gap-6 md:py-6 bg-white rounded-lg border">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 {/* Name */}
                 <div className="flex flex-col gap-2 w-full">
                     <label className="text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" {...register("name")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
+                    <input type="text" {...register("name")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-200" />
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                 </div>
 
@@ -217,7 +210,7 @@ const StudentHousingForm = () => {
                 {/* Description */}
                 <div className="flex flex-col gap-2 w-full">
                     <label className="text-sm font-medium text-gray-700">Description</label>
-                    <input type="text" {...register("Description")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
+                    <input type="text" {...register("Description")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-200" />
                     {errors.Description && <p className="text-red-500">{errors.Description.message}</p>}
                 </div>
 

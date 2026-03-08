@@ -1,4 +1,4 @@
-import StudentHousing from '@/app/pages/StudentHousing/StudentHousing'
+import StudentHousing from "@/app/pages/DormsForms/StudentHousing"
 
 const page = () => {
     return <StudentHousing />
