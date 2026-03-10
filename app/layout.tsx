@@ -5,7 +5,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
-// import { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -43,7 +43,7 @@ export default function RootLayout({
             </SidebarInset>
           </SidebarProvider>
         </QueryProvider>
-        {/* <Toaster position="top-center" reverseOrder={false} /> */}
+        <Toaster position="top-center" reverseOrder={false} />
       </body>
     </html>
   );
