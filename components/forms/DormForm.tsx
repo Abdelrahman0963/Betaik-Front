@@ -17,7 +17,7 @@ import StudentHousingCard from "../cards/StudentHousingCard";
 import PaymentPlanCard from "../cards/paymentcard";
 import { Pattern } from "../patterns/p-file-upload-4";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
-import { CiLocationOn } from "react-icons/ci";
+import { CiLocationOn, CiWifiOn } from "react-icons/ci";
 
 type PaymentPlanType = {
     planName: string;
@@ -34,6 +34,7 @@ type FormValues = {
     Description: string;
     price: number;
     installments: number;
+    Capacity: number;
 };
 
 const DormForm = () => {
@@ -362,6 +363,95 @@ const DormForm = () => {
                             <CiLocationOn className="text-6xl text-gray-400" />
                             <p className="text-lg text-gray-800">Drag the pin to adjust exact location</p>
                         </div>
+                    </div>
+                </div>
+                <div className="w-full h-px bg-gray-300"></div>
+
+                <div className="flex flex-col gap-4">
+                    <label htmlFor="Room Details">Room Details</label>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="Capacity">Capacity</label>
+                        <input
+                            type="text"
+                            id="Capacity"
+                            {...register("Capacity")}
+                            className="border border-blue-100 bg-blue-100/10  hover:bg-blue-100/20 rounded-md px-3 py-2"
+                        />
+
+                    </div>
+                    <div className="flex md:flex-row flex-col items-center gap-4 w-full">
+                        <div className="flex flex-col gap-2 w-full">
+                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <Select>
+                                <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
+                                    <SelectValue placeholder="Select Area" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Select Area</SelectLabel>
+
+                                        {[
+                                            "New Cairo",
+                                            "6th of October",
+                                            "Emaar",
+                                            "Mansoura",
+                                            "Giza",
+                                            "Cairo",
+                                            "Alexandria",
+                                        ].map((item) => (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="flex flex-col gap-2 w-full">
+                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <Select>
+                                <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
+                                    <SelectValue placeholder="Select Area" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectLabel>Select Area</SelectLabel>
+
+                                        {[
+                                            "New Cairo",
+                                            "6th of October",
+                                            "Emaar",
+                                            "Mansoura",
+                                            "Giza",
+                                            "Cairo",
+                                            "Alexandria",
+                                        ].map((item) => (
+                                            <SelectItem key={item} value={item}>
+                                                {item}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full h-px bg-gray-300"></div>
+                <div className="flex flex-col gap-4">
+                    <label htmlFor="Amenities">Amenities</label>
+                    <div className="flex items-center gap-4">
+                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
+                            <CiWifiOn className="text-2xl text-blue-400" />
+                            <p className="text-[16px] ">Wi-Fi</p>
+                        </nav>
+                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
+                            <CiWifiOn className="text-2xl text-blue-400" />
+                            <p className="text-[16px] ">Wi-Fi</p>
+                        </nav>
+                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
+                            <CiWifiOn className="text-2xl text-blue-400" />
+                            <p className="text-[16px] ">Wi-Fi</p>
+                        </nav>
                     </div>
                 </div>
             </form>
