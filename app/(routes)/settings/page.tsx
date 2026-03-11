@@ -1,16 +1,12 @@
 import React from "react";
-
-import Settings from "@/app/pages/settings/settings";
+import Settings from "@/pages/settings/settings";
 function Page() {
     return (
         <div className="">
-           
-                
-                    <div className="">
-                        <Settings />
-                    </div>
-                
-            
+
+
+            <Settings />
+
         </div>
     );
 }

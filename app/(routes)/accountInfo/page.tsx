@@ -1,4 +1,4 @@
-import AccountInfo from '@/app/pages/AccountInfo/AccountInfo'
+import AccountInfo from '@/pages/AccountInfo/AccountInfo'
 import React from 'react'
 
 const page = () => {

@@ -1,4 +1,4 @@
-import CompOrDrom from '@/app/pages/CompoundsOrDroms/CompOrDrom'
+import CompOrDrom from '@/pages/CompoundsOrDroms/CompOrDrom'
 import React from 'react'
 
 

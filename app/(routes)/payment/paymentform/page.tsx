@@ -1,5 +1,5 @@
+import Paymentform from "@/pages/paymentform/paymentform";
 import React from "react";
-import Paymentform from "@/app/pages/paymentform/paymentform";
 function Page() {
     return (
         <div className="flex flex-1 flex-col">

@@ -1,4 +1,4 @@
-import Homepage from './pages/home/Homepage'
+import Homepage from "@/pages/home/Homepage"
 
 const Home = () => {
   return <Homepage />

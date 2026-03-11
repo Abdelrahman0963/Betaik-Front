@@ -1,15 +1,13 @@
 import React from "react";
-import Support from "@/app/pages/support/support";
+import Support from "@/pages/support/support";
 function Page() {
     return (
         <div className="">
-           
-                
-                    <div className="">
-                        <Support />
-                    </div>
-                
-            
+
+
+            <Support />
+
+
         </div>
     );
 }

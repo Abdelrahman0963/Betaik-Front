@@ -54,6 +54,7 @@ const StudentHousingCard = ({
     return (
         <div
             className="w-full h-80 bg-white rounded-2xl cursor-pointer shadow-lg relative"
+            style={{ width: showCheckbox ? "280.33px" : "100%", height: showCheckbox ? "255px" : "320px" }}
             onClick={onClick}
         >
             <Image
@@ -62,44 +63,45 @@ const StudentHousingCard = ({
                 width={500}
                 height={600}
                 className="w-full h-45 object-fill rounded-t-2xl"
+                style={{ width: showCheckbox ? "280.33px" : "100%", height: showCheckbox ? "137px" : "180px" }}
             />
 
-            {/* Checkbox overlay */}
             {showCheckbox && onCheckChange && (
                 <nav className="absolute top-2 right-2 bg-white/80   p-2 rounded-full flex items-center justify-center">
                     <input
                         type="checkbox"
                         checked={checked}
                         onChange={(e) => onCheckChange(e.target.checked)}
-                        className="w-5 h-5 cursor-pointer accent-blue-600 bg-white/80 rounded-full"
+                        className="w-4 h-4 aspect-square cursor-pointer accent-blue-600 border border-gray-300   rounded-full"
                     />
                 </nav>
             )}
 
-            <div className="px-6 py-3 flex flex-1 flex-col w-full">
+            <div style={{ padding: showCheckbox ? "10px" : "20px" }} className="px-6 py-4 flex flex-1 flex-col w-full">
                 <div className="flex items-center justify-between w-full">
-                    <h3 className="text-lg font-semibold">{data?.name}</h3>
-                    <img src="/Frame 1984080340.png" alt="logo" width={40} height={40} />
+                    <h3 className={`font-semibold`} style={{ fontSize: showCheckbox ? "12.22px" : "18px" }}>{data?.name}</h3>
+                    <img src="/Frame 1984080340.png" alt="logo" style={{ width: showCheckbox ? "30px" : "40px", height: showCheckbox ? "30px" : "40px" }} className="object-contain" />
                 </div>
 
                 <div className="flex items-center gap-1">
                     <CiLocationOn className="text-blue-600" />
                     <p className="text-sm text-gray-500">{data?.area || "Unknown"}</p>
                 </div>
-
-                <div className="w-full mt-2 h-px bg-gray-300"></div>
-
-                <div className="mt-3">
-                    <span
-                        className="text-sm rounded-full px-4 py-2"
-                        style={{
-                            color: GenderColor(data?.gender).color,
-                            backgroundColor: GenderColor(data?.gender).bg,
-                            border: `1px solid ${GenderColor(data?.gender).border}`,
-                        }}
-                    >
-                        {data?.gender}
-                    </span>
+                <div className="flex flex-col gap-3 w-full">
+                    <div style={{ height: showCheckbox ? "0.5px" : "1px" }} className="w-full mt-2 bg-gray-300"></div>
+                    <div >
+                        <span
+                            className="text-sm rounded-full px-4 py-2"
+                            style={{
+                                color: GenderColor(data?.gender).color,
+                                backgroundColor: GenderColor(data?.gender).bg,
+                                border: `1px solid ${GenderColor(data?.gender).border}`,
+                                padding: showCheckbox ? "4px 6px" : "8px 16px"
+                            }}
+                        >
+                            {data?.gender}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

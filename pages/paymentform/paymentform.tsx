@@ -22,7 +22,7 @@ function Paymentform() {
     const [installments, setInstallments] = useState("");
     const options = ["Year", "Semester"];
 
-   
+
     const [showCalendarValidFrom, setShowCalendarValidFrom] = useState(false);
     const [selectedDateValidFrom, setSelectedDateValidFrom] = useState<Dayjs | null>(null);
 
@@ -31,7 +31,7 @@ function Paymentform() {
 
     const addPlan = usePaymentStore((state) => state.addPlan);
 
-    
+
     const [errors, setErrors] = useState({
         planName: "",
         price: "",
@@ -110,21 +110,21 @@ function Paymentform() {
         router.push("/payment");
     };
     const handleCancel = () => {
-    setPlanName("");
-    setPrice("");
-    setSelected("");
-    setInstallments("");
-    setSelectedDateValidFrom(null);
-    setSelectedDateTerm(null);
-    setErrors({
-        planName: "",
-        price: "",
-        selected: "",
-        installments: "",
-        validFrom: "",
-        term: "",
-    });
-};
+        setPlanName("");
+        setPrice("");
+        setSelected("");
+        setInstallments("");
+        setSelectedDateValidFrom(null);
+        setSelectedDateTerm(null);
+        setErrors({
+            planName: "",
+            price: "",
+            selected: "",
+            installments: "",
+            validFrom: "",
+            term: "",
+        });
+    };
 
     return (
         <div className="container mx-6">
@@ -212,9 +212,9 @@ function Paymentform() {
                     </div>
                 </div>
 
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
-                    
+
                     <div className="flex flex-col">
                         <label className="mb-2 text-sm font-medium">Valid From</label>
                         <div className="relative w-full">
@@ -244,7 +244,7 @@ function Paymentform() {
                         {errors.validFrom && <div className="text-red-500 text-sm mt-1">{errors.validFrom}</div>}
                     </div>
 
-                    
+
                     <div className="flex flex-col">
                         <label className="mb-2 text-sm font-medium">Academic Term</label>
                         <div className="relative w-full">
@@ -275,7 +275,7 @@ function Paymentform() {
                     </div>
                 </div>
 
-                
+
                 <div className="mt-5 w-full border border-gray-200"></div>
                 <div className="mt-5 w-full h-25 border border-gray-200 rounded-[10px] flex flex-col sm:flex-row gap-4 items-center justify-end pr-4">
                     <button
@@ -298,83 +298,3 @@ function Paymentform() {
 }
 
 export default Paymentform;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
