@@ -16,8 +16,18 @@ import {
 import StudentHousingCard from "../cards/StudentHousingCard";
 import PaymentPlanCard from "../cards/paymentcard";
 import { Pattern } from "../patterns/p-file-upload-4";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
-import { CiLocationOn, CiWifiOn } from "react-icons/ci";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select";
+import { CiLocationOn } from "react-icons/ci";
+import Image from "next/image";
+import { IoEyeOutline } from "react-icons/io5";
 
 type PaymentPlanType = {
     planName: string;
@@ -35,7 +45,17 @@ type FormValues = {
     price: number;
     installments: number;
     Capacity: number;
+    amenities: string[];
+    callNumber: string;
+    whatsappNumber: string;
 };
+
+interface AmenitiesType {
+    name: string;
+    icon: string;
+    width: number;
+    height: number;
+}
 
 const DormForm = () => {
     const { register, setValue } = useForm<FormValues>();
@@ -43,24 +63,40 @@ const DormForm = () => {
     const [dorms, setDorms] = useState<any[]>([]);
     const [paymentPlans, setPaymentPlans] = useState<PaymentPlanType[]>([]);
     const [files, setFiles] = useState<FileWithPreview[]>([]);
-
     const [openDorms, setOpenDorms] = useState(false);
     const [openPlans, setOpenPlans] = useState(false);
-
     const [paymentType, setPaymentType] = useState("");
-
+    const [contactInfo, setContactInfo] = useState("");
     const [selectedDorms, setSelectedDorms] = useState<{ [id: string]: boolean }>(
         {}
     );
-
     const [selectedPlans, setSelectedPlans] = useState<PaymentPlanType[]>([]);
+    const [selectedContact, setSelectedContact] = useState<string | null>(null);
     const [selectedFrequency, setSelectedFrequency] = useState<string | null>(
         null
     );
-
     const [showActions, setShowActions] = useState<number | null>(null);
 
-    /* ---------------- load data ---------------- */
+    // Amenities
+    const amenities: AmenitiesType[] = [
+        { name: "Wi-Fi", icon: "/icons/Wi-Fi.svg", width: 24, height: 24 },
+        { name: "Laundry", icon: "/icons/laundry.svg", width: 15.21, height: 18.20 },
+        { name: "Security", icon: "/icons/security.svg", width: 24, height: 24 },
+    ];
+
+    const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+
+    const toggleAmenity = (name: string) => {
+        setSelectedAmenities((prev) =>
+            prev.includes(name)
+                ? prev.filter((a) => a !== name)
+                : [...prev, name]
+        );
+    };
+
+    useEffect(() => {
+        setValue("amenities", selectedAmenities);
+    }, [selectedAmenities, setValue]);
 
     useEffect(() => {
         const storedDorms = localStorage.getItem("studentHousingData");
@@ -69,8 +105,6 @@ const DormForm = () => {
         if (storedDorms) setDorms(JSON.parse(storedDorms));
         if (storedPlans) setPaymentPlans(JSON.parse(storedPlans));
     }, []);
-
-    /* ---------------- handlers ---------------- */
 
     const handleSelectDorm = (prop: any) => {
         setValue("dorm", prop.name);
@@ -101,7 +135,6 @@ const DormForm = () => {
     const handleDelete = (index: number) => {
         console.log("delete", index);
     };
-
     return (
         <div className="flex flex-col gap-6 py-6 px-5 bg-white rounded-lg border">
             <p className="text-xl font-medium">Dorm Information</p>
@@ -244,8 +277,6 @@ const DormForm = () => {
                             />
                         </div>
                     )}
-
-                    {/* Existing Plans */}
 
                     {paymentType === "Use_Existing_Account" && (
                         <div className="flex flex-col gap-2">
@@ -439,20 +470,99 @@ const DormForm = () => {
                 <div className="w-full h-px bg-gray-300"></div>
                 <div className="flex flex-col gap-4">
                     <label htmlFor="Amenities">Amenities</label>
-                    <div className="flex items-center gap-4">
-                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
-                            <CiWifiOn className="text-2xl text-blue-400" />
-                            <p className="text-[16px] ">Wi-Fi</p>
-                        </nav>
-                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
-                            <CiWifiOn className="text-2xl text-blue-400" />
-                            <p className="text-[16px] ">Wi-Fi</p>
-                        </nav>
-                        <nav className="cursor-pointer flex gap-2 items-start px-4 w-52 py-3 rounded-full border border-gray-300 hover:border-blue-400 hover:bg-blue-50">
-                            <CiWifiOn className="text-2xl text-blue-400" />
-                            <p className="text-[16px] ">Wi-Fi</p>
-                        </nav>
+
+                    <div className="flex flex-wrap items-center gap-4">
+                        {amenities.map((amenity) => {
+                            const active = selectedAmenities.includes(amenity.name);
+
+                            return (
+                                <nav
+                                    key={amenity.name}
+                                    onClick={() => toggleAmenity(amenity.name)}
+                                    className={`cursor-pointer flex gap-2 items-center px-4 w-52 py-3 rounded-full border transition
+                  ${active
+                                            ? "border-blue-500 bg-blue-100"
+                                            : "border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                                        }`}
+                                >
+                                    <Image
+                                        width={amenity.width}
+                                        height={amenity.height}
+                                        className="w-6 h-6"
+                                        src={amenity.icon}
+                                        loading="lazy"
+                                        alt={amenity.name}
+                                    />
+
+                                    <p className="text-[16px]">{amenity.name}</p>
+                                </nav>
+                            );
+                        })}
                     </div>
+                </div>
+                <div className="w-full h-px bg-gray-300"></div>
+                <div className="flex flex-col gap-4">
+                    <label htmlFor="Contact Information">Contact Information</label>
+                    <RadioGroup onValueChange={setContactInfo}>
+                        <div className="flex items-center gap-3">
+                            <RadioGroupItem value="Contact_Info_Manual_Entry" id="r1" />
+                            <label htmlFor="r1">Manual Entry</label>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <RadioGroupItem value="Contact_Info_Use_Existing_Account" id="r2" />
+                            <label htmlFor="r2">Use Existing Account</label>
+                        </div>
+                    </RadioGroup>
+
+                    {contactInfo === "Contact_Info_Manual_Entry" && (
+                        <div className="flex flex-col gap-4">
+                            <div className="flex items-center md:flex-row flex-col gap-4 w-full">
+                                <div className="flex flex-col gap-2 w-full">
+                                    <label htmlFor="Call Number">Call Number</label>
+                                    <input
+                                        type="text"
+                                        placeholder="+1 (555) 000-0000"
+                                        {...register("callNumber")}
+                                        className="border bg-blue-100/10  hover:bg-blue-100/20 border-blue-200 rounded-[10px] py-2 px-4"
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-2 w-full">
+                                    <label htmlFor="WhatsApp Number">WhatsApp Number</label>
+                                    <input
+                                        type="text"
+                                        placeholder="+1 (555) 000-0000"
+                                        {...register("whatsappNumber")}
+                                        className="border bg-blue-100/10  hover:bg-blue-100/20 border-blue-200 rounded-[10px] py-2 px-4"
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-4">
+                                <label htmlFor="PreferredMethod">Preferred Contact Method</label>
+                                <div className="flex gap-4">
+                                    <RadioGroup className="flex gap-4">
+                                        {["call", "whatsapp", "both"].map((item) => (
+                                            <div key={item} className="flex items-center gap-2">
+                                                <RadioGroupItem value={item} id={item} />
+                                                <label htmlFor={item} className="capitalize">
+                                                    {item}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </RadioGroup>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    )}
+                </div>
+                <div className="w-full h-px bg-gray-300"></div>
+                <div className="flex items-end justify-end gap-4 w-full py-7 px-10 border rounded-2xl border-gray-300">
+                    <button type="button" className="bg-white cursor-pointer text-gray-500 px-4 py-2 border border-gray-600 rounded-lg hover:bg-red-50">Close</button>
+                    <button type="button" className="bg-white cursor-pointer text-gray-500 px-4 border border-gray-600 py-2 rounded-lg hover:bg-gray-50">Save Draft</button>
+                    <button type="button" className="bg-white cursor-pointer text-blue-500 px-4 py-2 border border-blue-500 rounded-lg hover:bg-blue-50 flex items-center gap-1"><IoEyeOutline className="text-blue-500" />  Preview</button>
+                    <button type="submit" className="bg-blue-800 cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-blue-600">Publish Dorm</button>
                 </div>
             </form>
         </div>
