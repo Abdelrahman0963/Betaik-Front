@@ -1,8 +1,8 @@
 "use client"
-import RecentActivity from "@/components/cards/RecentActivity"
-import { ChartAreaInteractive } from "@/components/graph/ChartAreaInteractive"
 import dynamic from "next/dynamic"
 import Link from "next/link"
+const RecentActivity = dynamic(() => import("@/components/cards/RecentActivity"), { ssr: false })
+const ChartAreaInteractive = dynamic(() => import("@/components/graph/ChartAreaInteractive").then(mod => mod.ChartAreaInteractive), { ssr: false })
 const HeroCards = dynamic(() => import("@/components/cards/HeroCards"), { ssr: false })
 export default function Homepage() {
 

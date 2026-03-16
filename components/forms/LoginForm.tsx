@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 import { useForm } from "react-hook-form";
@@ -20,11 +21,19 @@ const LoginForm = () => {
 
     return (
         <div className='flex flex-col items-start justify-start gap-8'>
+            <div className="absolute top-11 left-24 transform -translate-x-1/2 -translate-y-1/2 z-50">
+                <Image
+                    src="/icons/beitak main logo blue-01 png 1.svg"
+                    loading="lazy"
+                    alt="logo"
+                    width={120}
+                    height={33.4}
+                />
+            </div>
             <div className="flex flex-col items-start gap-3">
                 <h1 className="text-3xl font-semibold">Dashboard Login</h1>
                 <p className="text-sm text-gray-600 font-light">Access your management panel</p>
             </div>
-
             <form
                 className='flex flex-col gap-4 w-full'
                 onSubmit={handleSubmit(onSubmit)}

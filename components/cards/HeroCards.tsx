@@ -9,8 +9,6 @@ type CardData = {
     data: string;
 };
 
-// 🚀 [أهم تحسين] نقلنا البيانات خارج الـ Component
-// الآن سيتم تخزينها في الذاكرة مرة واحدة فقط عند بداية تشغيل التطبيق
 const cardsData: CardData[] = [
     {
         title: "Total Dorm Listings",
@@ -74,7 +72,6 @@ const HeroCards = () => {
                             alt={`${card.title} icon`}
                             width={24}
                             height={24}
-                            // 🚀 إعطاء أولوية للصورة إذا كانت في أول الصفحة لتحسين LCP
                             priority
                         />
                     </div>

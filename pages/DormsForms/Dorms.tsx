@@ -1,6 +1,6 @@
-import DormForm from '@/components/forms/DormForm'
+import dynamic from 'next/dynamic'
 import React from 'react'
-
+const DormForm = dynamic(() => import('@/components/forms/DormForm'), { ssr: false })
 const Dorms = () => {
     return (
         <>

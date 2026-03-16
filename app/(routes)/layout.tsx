@@ -18,25 +18,21 @@ const sidebarStyles: React.CSSProperties = {
     borderRight: "1px solid #dee2e6",
 };
 
-export default function RootLayout({
+export default function RoutesLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body
-                className={`${roboto.variable}  bg-white font-roboto antialiased`}
-            >
-                <SidebarProvider style={sidebarStyles}>
-                    <AppSidebar />
-                    <SidebarInset>
-                        <SiteHeader />
-                        {children}
-                    </SidebarInset>
-                </SidebarProvider>
-                <Toaster position="top-center" reverseOrder={false} />
-            </body>
-        </html>
+        <>
+            <SidebarProvider style={sidebarStyles}>
+                <AppSidebar />
+                <SidebarInset>
+                    <SiteHeader />
+                    {children}
+                </SidebarInset>
+            </SidebarProvider>
+            <Toaster position="top-center" reverseOrder={false} />
+        </>
     );
 }
