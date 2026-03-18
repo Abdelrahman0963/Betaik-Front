@@ -3,7 +3,7 @@ import React from 'react'
 
 const AuthPageImg = () => {
     return (
-        <div className="w-full bg-[#155DFC] h-full relative">
+        <div className="w-full hidden lg:block bg-[#155DFC] h-full relative">
             <div className="absolute top-[40%] left-[80%] 
 translate-x-[-50%] translate-y-[-50%] 
 w-50 h-0 

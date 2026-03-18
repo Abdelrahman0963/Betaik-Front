@@ -4,8 +4,8 @@ import React from 'react'
 
 const Login = () => {
     return (
-        <section className='flex items-center w-full h-screen relative'>
-            <div className="w-full bg-white h-full flex items-center justify-center">
+        <section className='W-full  flex items-center w-full h-screen relative'>
+            <div className="w-full relative   h-full flex items-center justify-center">
                 <LoginForm />
             </div>
             <AuthPageImg />

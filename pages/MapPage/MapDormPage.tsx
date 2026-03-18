@@ -13,14 +13,14 @@ const MapDormPage = () => {
     const [search, setSearch] = useState("")
 
     // Retrieve state from Zustand store
-    const { 
-        dorms, 
-        activeDorm, 
-        isDrawingMode, 
-        location, 
-        addDorm, 
-        setActiveDorm, 
-        setIsDrawingMode 
+    const {
+        dorms,
+        activeDorm,
+        isDrawingMode,
+        location,
+        addDorm,
+        setActiveDorm,
+        setIsDrawingMode
     } = useMapStore()
 
     // Required trick to stop hydration errors on initial load from localStorage persistence
@@ -63,7 +63,7 @@ const MapDormPage = () => {
 
     return (
         <div className="flex flex-1 flex-col relative w-full h-full bg-[#FAFAFA]">
-            
+
             {/* TOP HEADER */}
             <div className="flex items-start justify-between px-6 py-6 border-b border-gray-200 bg-white">
                 <div className="flex flex-col gap-5">
@@ -77,7 +77,7 @@ const MapDormPage = () => {
                         <button className="flex items-center gap-2 bg-[#8BAAFF] hover:bg-[#7298FF] text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors">
                             <Plus size={18} /> Add University
                         </button>
-                        <Link 
+                        <Link
                             href="/add-dorm"
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-colors bg-[#155DFC] hover:bg-[#104ec8] text-white`}
                         >
@@ -93,7 +93,7 @@ const MapDormPage = () => {
 
             <div className="flex flex-1 flex-col gap-2 h-full">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4 lg:px-6 h-full">
-                    
+
                     <div className="flex items-start gap-5 flex-1 h-[calc(100vh-250px)]">
 
                         {/* MAP */}

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import ChangePas from '@/components/forms/ChangePas'
 
 const ConfirmPass = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -34,66 +35,7 @@ const ConfirmPass = () => {
                             Access your management panel
                         </p>
                     </div>
-                    <form className='flex flex-col w-full gap-5' onSubmit={handleSubmit(data => console.log(data))}>
-                        <div className="flex flex-col gap-2 items-start relative">
-                            <label htmlFor="password" className="font-bold text-[#374151] text-[14px]">
-                                Enter New Password
-                            </label>
-                            <div className="relative w-full">
-                                <input
-                                    className='border border-[#D1D5DB] rounded-lg p-3 w-full focus:outline-none focus:border-[#155DFC] focus:ring-1 focus:ring-[#155DFC] transition-colors placeholder:text-[#9CA3AF] text-[15px] pr-10'
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder='Enter your email'
-                                    id="password"
-                                    {...register("password", { required: true })}
-                                />
-                                <button 
-                                    type="button" 
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                                </button>
-                            </div>
-                            {errors.password && <p className='text-red-500 text-sm font-medium'>Password is required</p>}
-                        </div>
-
-                        <div className="flex flex-col gap-2 items-start relative">
-                            <label htmlFor="confirmPassword" className="font-bold text-[#374151] text-[14px]">
-                                Confirm Password
-                            </label>
-                            <div className="relative w-full">
-                                <input
-                                    className='border border-[#D1D5DB] rounded-lg p-3 w-full focus:outline-none focus:border-[#155DFC] focus:ring-1 focus:ring-[#155DFC] transition-colors placeholder:text-[#9CA3AF] text-[15px] pr-10'
-                                    type={showConfirmPassword ? "text" : "password"}
-                                    placeholder='Enter your password'
-                                    id="confirmPassword"
-                                    {...register("confirmPassword", { required: true })}
-                                />
-                                <button 
-                                    type="button" 
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                >
-                                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                                </button>
-                            </div>
-                            {errors.confirmPassword && <p className='text-red-500 text-sm font-medium'>Confirm Password is required</p>}
-                        </div>
-
-                        <div className="flex justify-start w-full">
-                            <Link href="/login/resetpassword" className="text-[#155DFC] text-sm font-semibold hover:underline">
-                                Forgot Password?
-                            </Link>
-                        </div>
-
-                        <button
-                            className='bg-[#155DFC] hover:bg-[#104ec8] transition-colors text-white font-semibold rounded-lg p-3.5 w-full mt-2'
-                            type='submit'
-                        >
-                            Login
-                        </button>
-                    </form>
+                    <ChangePas />
                 </div>
             </div>
 

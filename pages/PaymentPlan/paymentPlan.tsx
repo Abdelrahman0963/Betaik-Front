@@ -6,7 +6,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CiCalendar } from "react-icons/ci";
 import { useRouter } from "next/navigation";
-import { usePaymentStore } from "../../stores/form";
+import { usePaymentStore } from "../../store/form";
 import { GrCircleAlert } from "react-icons/gr";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";

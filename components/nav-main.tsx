@@ -27,7 +27,6 @@ export function NavMain({
           {items.map((item) => {
             const isActive =
               pathname === item.url ||
-              pathname.startsWith(item.url + "/") ||
               (item.url === "/" && (pathname === "/" || pathname === "/accountInfo"));
             return (
               <Link href={item.url} key={item.title}>

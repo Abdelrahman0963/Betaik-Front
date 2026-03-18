@@ -1,47 +1,147 @@
+"use client"
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { useMutation } from '@tanstack/react-query'
+import { changePassword } from "@/services/AuthApi"
+import { useAuthStore } from '@/store'
+import { toast } from "sonner"
+import { useRouter } from 'next/navigation';
+
 const schema = z.object({
-    currentpassword: z.string().min(1, "Current password is required"),
-    newpassword: z.string().min(1, "New password is required"),
-    confirmpassword: z.string().min(1, "Confirm password is required"),
-})
+    newPassword: z.string().min(8, "كلمة السر الجديدة يجب أن تكون 8 أحرف على الأقل"),
+    confirmPassword: z.string().min(1, "تأكيد كلمة السر مطلوب"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+    message: "كلمات السر غير متطابقة",
+    path: ["confirmpassword"],
+});
 
 type FormData = z.infer<typeof schema>
 
 const ChangePas = () => {
+    const [showNew, setShowNew] = React.useState(false);
+    const [showConfirm, setShowConfirm] = React.useState(false);
+
+    const setAuth = useAuthStore((s) => s.setAuth);
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onBlur",
     })
-    return (
-        <div className='mt-6 border-t pt-4 '>
-            <h1 className='text-xl '>Change Password</h1>
-            <form className='flex flex-col gap-6 mt-4' onSubmit={handleSubmit((data) => console.log(data))}>
-                <div className='flex flex-col gap-2'>
-                    <label htmlFor="currentpassword" className='text-sm ml-1'>Current Password</label>
-                    <input type="password" id="currentpassword" {...register("currentpassword")} className='border border-blue-100 rounded-md px-3 py-2' />
-                    {errors.currentpassword && <p className='text-red-500 text-sm'>{errors.currentpassword.message}</p>}
-                </div>
-                <div className='flex flex-col gap-1'>
-                    <label htmlFor="newpassword" className='text-sm ml-1 '>New Password</label>
-                    <input type="password" id="newpassword" {...register("newpassword")} className='border border-blue-100 rounded-md px-3 py-2' />
-                    {errors.newpassword && <p className='text-red-500 text-sm'>{errors.newpassword.message}</p>}
-                </div>
-                <div className='flex flex-col gap-1'>
-                    <label htmlFor="confirmpassword" className='text-sm ml-1'>Confirm New Password</label>
-                    <input type="password" id="confirmpassword" {...register("confirmpassword")} className='border border-blue-100 rounded-md px-3 py-2' />
-                    {errors.confirmpassword && <p className='text-red-500 text-sm'>{errors.confirmpassword.message}</p>}
-                </div>
-                <div className="flex items-center justify-end gap-2">
-                    <button type="button" className='ml-2 border cursor-pointer border-gray-300 hover:bg-gray-100 transition   py-2 px-4 rounded-md' onClick={() => console.log("Cancel")}>Cancel</button>
-                    <button type="submit" className='ml-2 bg-blue-500 cursor-pointer hover:bg-blue-600 transition text-white text-sm py-2 px-4 rounded-md'>Change Password</button>
 
+    const mutation = useMutation({
+        mutationFn: (data: FormData) =>
+            changePassword({
+                newPassword: data.newPassword,
+                confirmPassword: data.confirmPassword,
+            }),
+        onSuccess: (response) => {
+            toast.success("تم تغيير كلمة السر بنجاح");
+            reset();
+
+            // لو السيستم بيرجع توكن جديد
+            setAuth({
+                user: { role: response.data.role },
+                token: response.data.token,
+                refreshToken: response.data.refreshToken,
+            });
+
+            router.push("/login");
+        },
+        onError: (error: any) => {
+            toast.error(error?.response?.data?.message || "حدث خطأ ما");
+        }
+    });
+
+    const onSubmit = (data: FormData) => {
+        mutation.mutate(data);
+    }
+
+    return (
+        <div className="max-w-md mx-auto p-4 w-full">
+            <h1 className='text-xl font-bold'>Set New Password</h1>
+
+            <form className='flex flex-col gap-6 mt-4 w-full' onSubmit={handleSubmit(onSubmit)}>
+
+                {/* New Password */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium">New Password</label>
+                    <div className="relative">
+                        <input
+                            {...register("newPassword")}
+                            type={showNew ? "text" : "password"}
+                            placeholder='••••••••'
+                            className={`border rounded-lg py-3 px-4 w-full ${errors.newPassword ? "border-red-500" : "border-gray-300"
+                                }`}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowNew(!showNew)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        >
+                            {showNew ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
+                    {errors.newPassword && (
+                        <span className="text-red-500 text-xs">
+                            {errors.newPassword.message}
+                        </span>
+                    )}
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium">Confirm New Password</label>
+                    <div className="relative">
+                        <input
+                            {...register("confirmPassword")}
+                            type={showConfirm ? "text" : "password"}
+                            placeholder='••••••••'
+                            className={`border rounded-lg py-3 px-4 w-full ${errors.confirmPassword ? "border-red-500" : "border-gray-300"
+                                }`}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowConfirm(!showConfirm)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        >
+                            {showConfirm ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                    </div>
+                    {errors.confirmPassword && (
+                        <span className="text-red-500 text-xs">
+                            {errors.confirmPassword.message}
+                        </span>
+                    )}
+                </div>
+
+                {/* Buttons */}
+                <div className="flex items-center justify-end gap-2">
+                    <button
+                        type="button"
+                        disabled={mutation.isPending}
+                        className='border border-gray-300 hover:bg-gray-100 py-2 px-4 rounded-md disabled:opacity-50'
+                        onClick={() => reset()}
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        disabled={mutation.isPending}
+                        className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md flex items-center gap-2'
+                    >
+                        {mutation.isPending && <Loader2 size={16} className="animate-spin" />}
+                        {mutation.isPending ? "Saving..." : "Change Password"}
+                    </button>
                 </div>
             </form>
         </div>
