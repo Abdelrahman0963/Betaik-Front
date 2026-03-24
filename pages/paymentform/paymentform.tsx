@@ -9,7 +9,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs, { Dayjs } from "dayjs";
 import { Box } from "@mui/material";
-import { usePaymentStore } from "../../stores/form";
+import { usePaymentStore } from "@/store/form";
 
 function Paymentform() {
     const router = useRouter();

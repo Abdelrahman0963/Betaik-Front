@@ -15,8 +15,10 @@ export default function ProtectedAuth({ children }: { children: React.ReactNode 
 
     useEffect(() => {
         if (isMounted) {
-            if (!token || !user) {
+            if (!token || !user || !user.role) {
                 router.replace("/login")
+            } else {
+                router.replace("/")
             }
         }
     }, [isMounted, token, user, router])

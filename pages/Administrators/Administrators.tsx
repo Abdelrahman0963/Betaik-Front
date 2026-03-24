@@ -2,9 +2,18 @@
 import dynamic from "next/dynamic"
 import Image from 'next/image'
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { getAdministrators } from '@/services/AuthApi'
 const AdminForm = dynamic(() => import('@/components/forms/AdminForm'), { ssr: false })
 const Administrators = () => {
     const [open, setOpen] = React.useState(false)
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["administrators"],
+        queryFn: getAdministrators
+    });
+
+    const admins = Array.isArray(data?.data) ? data.data : (data?.data ? [data.data] : []);
+
     return (
         <div className="flex flex-1 flex-col relative">
             <div className="@container/main flex flex-1 flex-col gap-2">
@@ -36,31 +45,56 @@ const Administrators = () => {
                                     <th className="px-6 py-3 font-medium">Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white ">
-                                <tr className="hover:bg-gray-50 transition">
-                                    <td className="px-6 py-4 font-medium text-gray-900  flex items-center gap-2">
-                                        <Image src="/Porfile.jpg" loading='lazy' width={40} height={40} alt="Profile Picture" className="rounded-full " />
-                                        John Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-gray-600">
-                                        UcX2S@example.com
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-2 py-1 text-xs rounded-md bg-blue-100 text-blue-700">
-                                            Admin
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-2 py-1 text-xs rounded-md bg-green-100 text-green-700">
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <button className="cursor-pointer  hover:underline text-sm">
-                                            <Image src="/icons/delete.svg" loading='lazy' width={15} height={16.67} alt="action icon" />
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tbody className="divide-y divide-white">
+                                {isLoading ? (
+                                    <tr>
+                                        <td colSpan={5} className="px-6 py-8 text-center text-gray-500">Loading administrators...</td>
+                                    </tr>
+                                ) : isError ? (
+                                    <tr>
+                                        <td colSpan={5} className="px-6 py-8 text-center text-red-500">
+                                            Failed to load data. {(error as any)?.message}
+                                        </td>
+                                    </tr>
+                                ) : admins.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={5} className="px-6 py-8 text-center text-gray-500">No administrators found.</td>
+                                    </tr>
+                                ) : (
+                                    admins.map((admin: any, index: number) => (
+                                        <tr key={admin?.id || index} className="hover:bg-gray-50 transition">
+                                            <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-2">
+                                                <Image 
+                                                    src={admin?.profilePicture || "/Porfile.jpg"} 
+                                                    loading='lazy' 
+                                                    width={40} 
+                                                    height={40} 
+                                                    alt="Profile Picture" 
+                                                    className="rounded-full object-cover" 
+                                                />
+                                                {admin?.fullName || "N/A"}
+                                            </td>
+                                            <td className="px-6 py-4 text-gray-600">
+                                                {admin?.email || "N/A"}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className="px-2 py-1 text-xs rounded-md bg-blue-100 text-blue-700">
+                                                    {admin?.role || "Admin"}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className={`px-2 py-1 text-xs rounded-md ${admin?.isActive ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                                                    {admin?.isActive ? "Active" : "Inactive"}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <button className="cursor-pointer hover:underline text-sm">
+                                                    <Image src="/icons/delete.svg" loading='lazy' width={15} height={16.67} alt="Delete" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
                             </tbody>
                         </table>
                     </div>

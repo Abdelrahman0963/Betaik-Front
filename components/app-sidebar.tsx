@@ -14,46 +14,44 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import Image from "next/image"
-import { LuBuilding2 } from "react-icons/lu";
+import { LuBuilding2, LuGraduationCap } from "react-icons/lu";
 import { FiTag } from "react-icons/fi";
 import { BsGraphUp, BsPeopleFill } from "react-icons/bs";
 import { FaRegFileAlt } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { BiSupport } from "react-icons/bi";
-import { IoSettingsOutline } from "react-icons/io5";
-
-// نقلنا البيانات بره الـ Component وضفنا الأدوار المسموحة لكل لينك
+import { IoCodeSlashOutline, IoSettingsOutline } from "react-icons/io5";
 const sidebarData = {
   navMain: [
     {
       title: "Dashboard",
       url: "/",
       icon: MdOutlineDashboard,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       title: " Create Developer",
       url: "/newdeveloper",
-      icon: RiAdminLine,
-      allowedRoles: ["admin",],
+      icon: IoCodeSlashOutline,
+      allowedRoles: ["superadmin"],
     },
     {
       title: "Create Universities ",
       url: "/newuniversity",
-      icon: BsPeopleFill,
-      allowedRoles: ["admin",],
+      icon: LuGraduationCap,
+      allowedRoles: ["superadmin"],
     },
     {
       title: "Compounds",
       url: "/compounds",
       icon: LuBuilding2,
-      allowedRoles: ["admin", "developer"],
+      allowedRoles: ["superadmin", "developer"],
     },
     {
       title: "Properties",
       url: "/properties",
       icon: LuBuilding2,
-      allowedRoles: ["admin", "developer"],
+      allowedRoles: ["superadmin", "developer"],
     },
     {
       title: "Dorms Management",
@@ -65,7 +63,7 @@ const sidebarData = {
       title: "Area & District",
       url: "/area-district",
       icon: LuBuilding2,
-      allowedRoles: ["admin"],
+      allowedRoles: ["superadmin"],
     },
     {
       title: "Payment Plan",
@@ -83,13 +81,13 @@ const sidebarData = {
       title: "Map view",
       url: "/map",
       icon: MdOutlineMap,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       title: "Student Housing",
       url: "/student-housing",
       icon: BsGraphUp,
-      allowedRoles: ["admin"],
+      allowedRoles: ["superadmin"],
     },
     {
       title: "Analytics",
@@ -101,30 +99,30 @@ const sidebarData = {
       title: "Leads",
       url: "/leads",
       icon: BsPeopleFill,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       title: "Logs",
       url: "/logs",
       icon: FaRegFileAlt,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       title: "Feedback",
       url: "/feedback",
       icon: BsPeopleFill,
-      allowedRoles: ["admin"],
+      allowedRoles: ["superadmin"],
     },
     {
       title: "Reported Listings",
       url: "/reported-listings",
       icon: BsPeopleFill,
-      allowedRoles: ["admin"],
+      allowedRoles: ["superadmin"],
     }, {
       title: "Users",
       url: "/users",
       icon: BsPeopleFill,
-      allowedRoles: ["admin"],
+      allowedRoles: ["superadmin"],
     }
   ],
   documents: [
@@ -132,27 +130,27 @@ const sidebarData = {
       name: "Administrators",
       url: "/administrators",
       icon: RiAdminLine,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       name: "Support",
       url: "/support",
       icon: BiSupport,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
     {
       name: "Settings",
       url: "/settings",
       icon: IoSettingsOutline,
-      allowedRoles: ["admin", "developer", "university"],
+      allowedRoles: ["superadmin", "developer", "university"],
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.user || "SuperAdmin");
 
-  const currentRole = user?.role?.toLowerCase() || "";
+  const currentRole = user?.role.toLowerCase();
 
   const filteredNavMain = sidebarData.navMain.filter(item =>
     item.allowedRoles.includes(currentRole)
@@ -180,7 +178,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {/* نمرر المصفوفات المفلترة فقط */}
         <NavMain items={filteredNavMain} />
         <NavDocuments items={filteredDocuments} />
       </SidebarContent>

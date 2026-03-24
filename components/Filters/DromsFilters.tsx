@@ -70,7 +70,6 @@ const DromsFilters = () => {
                         </SelectContent>
                     </Select>
                 </div>
-
             </div>
         </div>
     )

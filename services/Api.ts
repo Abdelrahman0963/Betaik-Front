@@ -22,7 +22,13 @@ api.interceptors.response.use(
             try {
                 const refreshToken = Cookies.get("refreshToken");
                 const token = Cookies.get("token");
-                const user = JSON.parse(Cookies.get("user") || "{}");
+                const userString = Cookies.get("user");
+
+                if (!refreshToken || !token || !userString) {
+                    throw new Error("Missing auth credentials for refresh");
+                }
+
+                const user = JSON.parse(userString);
                 const res = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/api/Dashboard/DashboardAuth/RefreshToken`, {
                     token: token,
                     refreshToken: refreshToken,
