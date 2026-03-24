@@ -1,15 +1,9 @@
 "use client"
 import AuthPageImg from '@/components/AuthPageImg'
-import { useForm } from 'react-hook-form'
 import Image from 'next/image'
-import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 const ChangePas = dynamic(() => import('@/components/forms/ChangePas'), { ssr: false });
 const ConfirmPass = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm()
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-
     return (
         <section className='flex w-full h-screen overflow-hidden bg-white'>
             <div className="w-full lg:w-1/2 h-full flex flex-col bg-white overflow-y-auto relative z-10">

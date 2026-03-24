@@ -47,7 +47,7 @@ export default function LocationMap({ location, markers, polygon, isDrawingMode,
                 onLoad={(map) => { mapRef.current = map; }}
             >
                 {/* Markers */}
-                {markers.map((marker, index) => (
+                {(markers || []).map((marker, index) => (
                     <Marker key={index} position={marker} />
                 ))}
 

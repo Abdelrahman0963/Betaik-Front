@@ -1,5 +1,5 @@
+"use client"
 import dynamic from 'next/dynamic'
-import React from 'react'
 const DormForm = dynamic(() => import('@/components/forms/DormForm'), { ssr: false })
 const Dorms = () => {
     return (
