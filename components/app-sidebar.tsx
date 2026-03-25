@@ -14,13 +14,14 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import Image from "next/image"
-import { LuBuilding2, LuGraduationCap } from "react-icons/lu";
-import { FiTag } from "react-icons/fi";
+import { LuBuilding2, LuGraduationCap, LuMessagesSquare } from "react-icons/lu";
+import { FiBookOpen, FiFlag, FiTag } from "react-icons/fi";
 import { BsGraphUp, BsPeopleFill } from "react-icons/bs";
 import { FaRegFileAlt } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { BiSupport } from "react-icons/bi";
 import { IoCodeSlashOutline, IoSettingsOutline } from "react-icons/io5";
+import { GrHomeRounded, GrLocation } from "react-icons/gr";
 const sidebarData = {
   navMain: [
     {
@@ -50,7 +51,7 @@ const sidebarData = {
     {
       title: "Properties",
       url: "/properties",
-      icon: LuBuilding2,
+      icon: GrHomeRounded,
       allowedRoles: ["superadmin", "developer"],
     },
     {
@@ -62,7 +63,7 @@ const sidebarData = {
     {
       title: "Area & District",
       url: "/area-district",
-      icon: LuBuilding2,
+      icon: GrLocation,
       allowedRoles: ["superadmin"],
     },
     {
@@ -86,7 +87,7 @@ const sidebarData = {
     {
       title: "Student Housing",
       url: "/student-housing",
-      icon: BsGraphUp,
+      icon: FiBookOpen,
       allowedRoles: ["superadmin"],
     },
     {
@@ -110,13 +111,13 @@ const sidebarData = {
     {
       title: "Feedback",
       url: "/feedback",
-      icon: BsPeopleFill,
+      icon: LuMessagesSquare,
       allowedRoles: ["superadmin"],
     },
     {
       title: "Reported Listings",
       url: "/reported-listings",
-      icon: BsPeopleFill,
+      icon: FiFlag,
       allowedRoles: ["superadmin"],
     }, {
       title: "Users",
@@ -177,7 +178,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="overflow-y-auto px-2 py-4">
         <NavMain items={filteredNavMain} />
         <NavDocuments items={filteredDocuments} />
       </SidebarContent>
