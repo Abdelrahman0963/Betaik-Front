@@ -11,8 +11,10 @@ const Administrators = () => {
         queryKey: ["administrators"],
         queryFn: getAdministrators
     });
-
-    const admins = Array.isArray(data?.data) ? data.data : (data?.data ? [data.data] : []);
+  
+    const admins = Array.isArray(data?.data?.administrators)
+        ? data.data.administrators
+        : [];
 
     return (
         <div className="flex flex-1 flex-col relative">
@@ -34,7 +36,7 @@ const Administrators = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-white">
+                    <div className="w-full overflow-auto rounded-2xl border border-gray-200 bg-white">
                         <table className="w-full text-sm">
                             <thead className="bg-gray-50 text-gray-600">
                                 <tr className="text-left">
@@ -63,16 +65,26 @@ const Administrators = () => {
                                 ) : (
                                     admins.map((admin: any, index: number) => (
                                         <tr key={admin?.id || index} className="hover:bg-gray-50 transition">
-                                            <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-2">
-                                                <Image 
-                                                    src={admin?.profilePicture || "/Porfile.jpg"} 
-                                                    loading='lazy' 
-                                                    width={40} 
-                                                    height={40} 
-                                                    alt="Profile Picture" 
-                                                    className="rounded-full object-cover" 
-                                                />
-                                                {admin?.fullName || "N/A"}
+                                            <td className="px-6 py-4 font-medium text-gray-900 flex items-center gap-3">
+                                                {admin?.profilePicture ? (
+                                                    // لو فيه صورة بروفايل اعرضها
+                                                    <Image
+                                                        src={admin.profilePicture}
+                                                        loading="lazy"
+                                                        width={40}
+                                                        height={40}
+                                                        alt="Profile"
+                                                        className="rounded-full h-10 w-10 object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold text-sm uppercase">
+                                                        {admin?.name ? admin.name.substring(0, 2) : "NA"}
+                                                    </div>
+                                                )}
+
+                                                <span className="truncate max-w-[150px]">
+                                                    {admin?.name || "N/A"}
+                                                </span>
                                             </td>
                                             <td className="px-6 py-4 text-gray-600">
                                                 {admin?.email || "N/A"}
@@ -83,8 +95,11 @@ const Administrators = () => {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 text-xs rounded-md ${admin?.isActive ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                                                    {admin?.isActive ? "Active" : "Inactive"}
+                                                <span className={`px-2 py-1 text-xs rounded-md ${admin?.status?.toLowerCase().startsWith("active")
+                                                    ? "bg-green-100 text-green-700"
+                                                    : "bg-red-100 text-red-700"
+                                                    }`}>
+                                                    {admin?.status ? admin.status.split(' ')[0] : "Inactive"}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4">
