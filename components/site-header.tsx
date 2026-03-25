@@ -1,15 +1,17 @@
 "use client"
-
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Navpopup from "@/components/Navpopup"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import Image from "next/image"
 import React from "react"
+import { useAuthStore } from "@/store"
 
 export function SiteHeader() {
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const user = useAuthStore((state) => state.user);
+  console.log("user", user)
 
   React.useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -53,7 +55,7 @@ export function SiteHeader() {
           className="rounded-full"
         />
 
-        <h1 className="text-base font-medium sm:block hidden">GIU University</h1>
+        <h1 className="text-base font-medium sm:block hidden">{user?.role}</h1>
 
         <div className="ml-auto flex items-center gap-2">
           <nav>

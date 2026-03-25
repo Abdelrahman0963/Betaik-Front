@@ -1,11 +1,31 @@
 import Image from 'next/image'
 import React from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
+import { deleteDeveloper } from '@/services/AuthApi'
+import { useMutation } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 type Props = {
     data: any
 }
+type deleteDeveloperProps = {
+    id: string
+}
 const CardCreatePopup = ({ data }: Props) => {
     const [showPopup, setShowPopup] = React.useState(false);
+    const deleteDeveloperMutation = useMutation({
+        mutationFn: async ({ id }: deleteDeveloperProps) => {
+            const response = await deleteDeveloper(id);
+            return response;
+        },
+        onSuccess: () => {
+            setShowPopup(false);
+            toast.success("Developer deleted successfully");
+        },
+        onError: (error) => {
+            console.error(error);
+            toast.error("Failed to delete developer");
+        }
+    })
     return (
         <div className='bg-white p-6 rounded-lg shadow-lg w-[372px]'>
             <div className='flex flex-col gap-4'>
@@ -17,13 +37,13 @@ const CardCreatePopup = ({ data }: Props) => {
                         <button onClick={() => setShowPopup(!showPopup)} className="text-gray-500 hover:text-gray-700 cursor-pointer">
                             <FiMoreVertical size={20} />
                         </button>
-                        
+
                         {showPopup && (
                             <div className="absolute right-0 top-full mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-10 flex flex-col overflow-hidden">
                                 <button className="px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-50 transition-colors w-full cursor-pointer">
                                     Update
                                 </button>
-                                <button className="px-4 py-2 text-sm text-left text-red-600 hover:bg-red-50 transition-colors w-full cursor-pointer">
+                                <button onClick={() => deleteDeveloperMutation.mutate({ id: data?.id || data?._id })} className="px-4 py-2 text-sm text-left text-red-600 hover:bg-red-50 transition-colors w-full cursor-pointer">
                                     Delete
                                 </button>
                             </div>
