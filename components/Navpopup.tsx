@@ -31,7 +31,7 @@ const Navpopup = () => {
 
             <ul className="flex flex-col gap-1 text-sm">
                 <li>
-                    <Link href="#" className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
+                    <Link href="/accountInfo" className="flex items-center gap-1 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
                         <FaRegUser className='inline-block mr-2' />
                         Profile
                     </Link>
