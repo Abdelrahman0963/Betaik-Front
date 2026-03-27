@@ -91,3 +91,12 @@ export const deleteDeveloper = (id: string) => {
 export const updateDeveloper = (data: CreateDeveloper) => {
     return api.put(`${API_BASE_URL}api/Admin/Developers/Update`, data)
 }
+
+type ChangeYourPassword = {
+    currentPassword: string
+    newPassword: string
+    confirmPassword: string
+}
+export const changeYourPassword = (data: ChangeYourPassword) => {
+    return api.post(`${API_BASE_URL}api/Dashboard/DashboardAuth/change-password`, data)
+}

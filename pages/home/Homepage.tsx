@@ -12,12 +12,11 @@ export default function Homepage() {
   const user = useAuthStore((state) => state.user);
   const [mounted, setMounted] = useState(false);
 
-  // حل مشكلة الـ Hydration: ننتظر لما المكون يحصل له mount على الكلاينت
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // أو رجع Spinner بسيط
+  if (!mounted) return null; 
 
   return (
     <>

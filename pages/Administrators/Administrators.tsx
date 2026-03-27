@@ -11,16 +11,9 @@ const Administrators = () => {
         queryKey: ["administrators"],
         queryFn: getAdministrators
     });
-
-    // 1. اطبع الداتا هنا في الـ Console وشوف شكلها إيه
-    console.log("API Response:", data);
-
-    // 2. محاولة استخراج المصفوفة بشكل أصح
-    // لو Axios بيرجع الداتا في res.data والـ API بيرجعها مباشرة:
     const admins = Array.isArray(data?.data?.administrators)
         ? data.data.administrators
         : [];
-
     return (
         <div className="flex flex-1 flex-col relative">
             <div className="@container/main flex flex-1 flex-col gap-2">
