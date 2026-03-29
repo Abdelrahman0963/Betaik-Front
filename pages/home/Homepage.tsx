@@ -16,7 +16,7 @@ export default function Homepage() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; 
+  if (!mounted) return null;
 
   return (
     <>
@@ -54,11 +54,7 @@ export default function Homepage() {
                     );
                   }
 
-<<<<<<< HEAD
                   return null; // في حالة مفيش يوزر أو روول مختلفة
-=======
-                  return null;
->>>>>>> dc8c671d63c4262633855445edea5963d5bace7a
                 })()}
               </div>
               <div className="flex items-center justify-between">

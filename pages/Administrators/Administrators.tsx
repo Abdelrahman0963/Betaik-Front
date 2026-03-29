@@ -11,17 +11,9 @@ const Administrators = () => {
         queryKey: ["administrators"],
         queryFn: getAdministrators
     });
-<<<<<<< HEAD
     const admins = Array.isArray(data?.data?.administrators)
         ? data.data.administrators
         : [];
-=======
-  
-    const admins = Array.isArray(data?.data?.administrators)
-        ? data.data.administrators
-        : [];
-
->>>>>>> dc8c671d63c4262633855445edea5963d5bace7a
     return (
         <div className="flex flex-1 flex-col relative">
             <div className="@container/main flex flex-1 flex-col gap-2">
