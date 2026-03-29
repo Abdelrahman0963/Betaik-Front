@@ -82,7 +82,7 @@ const AddUniForm = () => {
 
                 <div className="flex flex-col gap-4 w-full pt-4">
                     <div className="w-full h-px bg-gray-300 "></div>
-                    <div className="flex w-full justify-between items-center">
+                    <div className="flex flex-col md:flex-row w-full justify-between items-center">
                         <h3 className="text-lg font-semibold">Contract Settings</h3>
                         <RadioGroup onValueChange={(value) => setShowContract(value === "active")}>
                             <div className="flex items-center gap-3">
