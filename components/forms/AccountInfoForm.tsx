@@ -49,8 +49,6 @@ const AccountInfoForm = () => {
             <h3 className="text-lg font-semibold">Account Information</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-
-                {/* First & Last Name */}
                 <div className="flex flex-col gap-4 md:flex-row">
                     <div className="flex flex-col gap-2 flex-1">
                         <label htmlFor="firstName" className="text-sm font-medium ml-1">
@@ -86,8 +84,6 @@ const AccountInfoForm = () => {
                         )}
                     </div>
                 </div>
-
-                {/* Email */}
                 <div className="flex flex-col gap-2">
                     <label htmlFor="email" className="text-sm font-medium ml-1">
                         Email
@@ -105,11 +101,8 @@ const AccountInfoForm = () => {
                         </p>
                     )}
                 </div>
-
-                {/* Call Phone & WhatsApp */}
                 <div className="flex flex-col items-start w-full gap-10 mt-5 ">
                     <h3>Contact Information</h3>
-                    {/* Buttons */}
                     <div className="flex items-start gap-3">
                         <button
                             type="button"
@@ -133,7 +126,6 @@ const AccountInfoForm = () => {
                             Both
                         </button>
                     </div>
-
                     {mode === "separate" ? (
                         <div className="flex flex-row items-center w-full gap-4 justify-center">
 
@@ -153,8 +145,6 @@ const AccountInfoForm = () => {
                                     </p>
                                 )}
                             </div>
-
-                            {/* WhatsApp */}
                             <div className="flex flex-col gap-2 w-full">
                                 <label htmlFor="whatsapp" className="text-sm font-medium ml-1">
                                     WhatsApp
@@ -185,8 +175,6 @@ const AccountInfoForm = () => {
                     )}
 
                 </div>
-
-                {/* Submit */}
                 <div className="flex items-center justify-end gap-2 mt-4">
                     <button
                         type="button"

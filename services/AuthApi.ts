@@ -100,7 +100,10 @@ type ChangeYourPassword = {
 export const changeYourPassword = (data: ChangeYourPassword) => {
     return api.post(`${API_BASE_URL}api/Dashboard/DashboardAuth/change-password`, data)
 }
+<<<<<<< HEAD
 
 export const getUserInfo = () => {
     return api.get(`${API_BASE_URL}api/Dashboard/DashboardAuth/Get-My-Info`)
 }
+=======
+>>>>>>> dc8c671d63c4262633855445edea5963d5bace7a

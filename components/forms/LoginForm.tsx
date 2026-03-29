@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -18,9 +17,7 @@ const loginSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
     password: z.string().min(6, "Password must be at least 6 characters"),
 });
-
 type LoginFormData = z.infer<typeof loginSchema>;
-
 const LoginForm = () => {
     const router = useRouter();
     const setAuth = useAuthStore((s) => s.setAuth);
@@ -46,7 +43,6 @@ const LoginForm = () => {
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
     });
-
     const loginMutation = useMutation({
         mutationFn: async (credentials: LoginFormData) => {
             const loginRes = await logIn(credentials);
@@ -79,7 +75,6 @@ const LoginForm = () => {
                 router.replace("/");
             }
         },
-
         onError: (error: any) => {
             const serverMsg = error?.response?.data?.msg;
 
