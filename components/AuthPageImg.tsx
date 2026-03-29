@@ -13,7 +13,6 @@ blur-3xl
 pointer-events-none">
             </div>
             <Image src="/Group 1000001848.png" className='w-full h-full object-fill' alt="image" loading='lazy' quality={100} width={656} height={732} />
-
         </div>
     )
 }

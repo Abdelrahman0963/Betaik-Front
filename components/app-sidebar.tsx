@@ -22,108 +22,118 @@ import { RiAdminLine } from "react-icons/ri";
 import { BiSupport } from "react-icons/bi";
 import { IoCodeSlashOutline, IoSettingsOutline } from "react-icons/io5";
 import { GrHomeRounded, GrLocation } from "react-icons/gr";
+
+
+const roles = {
+  superadmin: "superadmin",
+  subadmin: "subadmin",
+  developer: "developer",
+  subdeveloper: "subdeveloper",
+  university: "university",
+  subuniversity: "subuniversity",
+}
 const sidebarData = {
   navMain: [
     {
       title: "Dashboard",
       url: "/",
       icon: MdOutlineDashboard,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.developer, roles.university, roles.subadmin, roles.subdeveloper, roles.subuniversity],
     },
     {
       title: " Create Developer",
       url: "/newdeveloper",
       icon: IoCodeSlashOutline,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin],
     },
     {
       title: "Create Universities ",
       url: "/newuniversity",
       icon: LuGraduationCap,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin],
     },
     {
       title: "Compounds",
       url: "/compounds",
       icon: LuBuilding2,
-      allowedRoles: ["superadmin", "developer"],
+      allowedRoles: [roles.superadmin, roles.developer, roles.subdeveloper, roles.subadmin],
     },
     {
       title: "Properties",
       url: "/properties",
       icon: GrHomeRounded,
-      allowedRoles: ["superadmin", "developer"],
+      allowedRoles: [roles.superadmin, roles.developer, roles.subdeveloper, roles.subadmin],
     },
     {
       title: "Dorms Management",
       url: "/dorms-mgt",
       icon: LuBuilding2,
-      allowedRoles: ["university"],
+      allowedRoles: [roles.university, roles.subuniversity],
     },
     {
       title: "Area & District",
       url: "/area-district",
       icon: GrLocation,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin, roles.subadmin],
     },
     {
       title: "Payment Plan",
       url: "/payment",
       icon: FiTag,
-      allowedRoles: ["university"],
+      allowedRoles: [roles.university, roles.subuniversity],
     },
     {
       title: "offers & plans",
       url: "/offers-plans",
       icon: FiTag,
-      allowedRoles: ["developer"],
+      allowedRoles: [roles.developer, roles.subdeveloper],
     },
     {
       title: "Map view",
       url: "/map",
       icon: MdOutlineMap,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.developer, roles.university],
     },
     {
       title: "Student Housing",
       url: "/student-housing",
       icon: FiBookOpen,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin, roles.subadmin],
     },
     {
       title: "Analytics",
       url: "/analytics",
       icon: BsGraphUp,
-      allowedRoles: ["developer", "university"],
+      allowedRoles: [roles.developer, roles.subdeveloper, roles.university, roles.subuniversity],
     },
     {
       title: "Leads",
       url: "/leads",
       icon: BsPeopleFill,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.subadmin, roles.developer, roles.subdeveloper, roles.university, roles.subuniversity],
     },
     {
       title: "Logs",
       url: "/logs",
       icon: FaRegFileAlt,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.subadmin, roles.subdeveloper, roles.subuniversity, roles.developer, roles.university],
     },
     {
       title: "Feedback",
       url: "/feedback",
       icon: LuMessagesSquare,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin, roles.subadmin],
     },
     {
       title: "Reported Listings",
       url: "/reported-listings",
       icon: FiFlag,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin, roles.subadmin],
     }, {
       title: "Users",
       url: "/users",
       icon: BsPeopleFill,
-      allowedRoles: ["superadmin"],
+      allowedRoles: [roles.superadmin, roles.subadmin],
     }
   ],
   documents: [
@@ -131,19 +141,19 @@ const sidebarData = {
       name: "Administrators",
       url: "/administrators",
       icon: RiAdminLine,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.developer, roles.university],
     },
     {
       name: "Support",
       url: "/support",
       icon: BiSupport,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.subadmin, roles.developer, roles.subdeveloper, roles.university, roles.subuniversity],
     },
     {
       name: "Settings",
       url: "/settings",
       icon: IoSettingsOutline,
-      allowedRoles: ["superadmin", "developer", "university"],
+      allowedRoles: [roles.superadmin, roles.subadmin, roles.developer, roles.subdeveloper, roles.university, roles.subuniversity],
     },
   ],
 }

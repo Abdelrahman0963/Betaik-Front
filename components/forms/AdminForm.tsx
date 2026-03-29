@@ -37,14 +37,12 @@ const AdminForm = ({ close }: { close: () => void }) => {
             toast.success("Administrator added successfully");
         },
         onError: (error: any) => {
-            console.log(error);
             toast.error(error?.response?.data?.message || error.message || "Failed to add administrator");
         }
     });
 
     const onSubmit = (data: FormValues) => {
         administratorRegister.mutate(data);
-        console.log("submitted", data);
     };
 
     return (

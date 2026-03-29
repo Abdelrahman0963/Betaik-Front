@@ -1,17 +1,31 @@
 "use client"
+
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Navpopup from "@/components/Navpopup"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import Image from "next/image"
 import React from "react"
-import { useAuthStore } from "@/store"
+import { getUserInfo } from "@/services/AuthApi"
+import { useQuery } from "@tanstack/react-query"
+
+interface UserInfoResponse {
+  myInfo: {
+    name: string;
+    companyName: string;
+    userImg: string;
+    companyImg: string;
+  }
+}
 
 export function SiteHeader() {
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const user = useAuthStore((state) => state.user);
-  console.log("user", user)
+
+  const { data: userInfo, isLoading } = useQuery<UserInfoResponse>({
+    queryKey: ["myInfo"],
+    queryFn: () => getUserInfo().then((res) => res.data as UserInfoResponse),
+  })
 
   React.useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -36,6 +50,11 @@ export function SiteHeader() {
     setIsNavPopupOpen((prev) => !prev)
   }
 
+  // فنكشن بسيطة عشان تاخد أول حرف من أي كلمة
+  const getFirstLetter = (name: string) => {
+    return name ? name.charAt(0).toUpperCase() : "?"
+  }
+  console.log(userInfo)
   return (
     <header className="flex h-(--header-height) py-10 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[var(--header-height)]">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -46,16 +65,26 @@ export function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
 
-        <Image
-          src="/Frame 1984080340.png"
-          alt="Logo"
-          width={36}
-          height={36}
-          priority
-          className="rounded-full"
-        />
-
-        <h1 className="text-base font-medium sm:block hidden">{user?.role}</h1>
+        {/* عرض لوجو الشركة أو أول حرف */}
+        <div className="flex items-center gap-2">
+          {userInfo?.myInfo?.companyImg ? (
+            <Image
+              src={userInfo.myInfo.companyImg}
+              alt="Company Logo"
+              width={36}
+              height={36}
+              priority
+              className="rounded-full object-cover w-9 h-9"
+            />
+          ) : (
+            <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-bold border border-blue-500">
+              {getFirstLetter(userInfo?.myInfo?.companyName || "")}
+            </div>
+          )}
+          <h1 className="text-base font-medium sm:block hidden">
+            {isLoading ? "Loading..." : userInfo?.myInfo?.companyName}
+          </h1>
+        </div>
 
         <div className="ml-auto flex items-center gap-2">
           <nav>
@@ -70,16 +99,25 @@ export function SiteHeader() {
             </Button>
           </nav>
 
+          {/* عرض صورة المستخدم أو أول حرف من اسمه */}
           <nav className="flex items-center gap-2">
-            <Image
-              src="/Porfile.jpg"
-              alt="user image"
-              loading="lazy"
-              className="rounded-full max-w-10 max-h-10"
-              width={40}
-              height={40}
-            />
-            <h3 className="text-sm text-black sm:block hidden">John Doe</h3>
+            <div className="relative w-10 h-10">
+              {userInfo?.myInfo?.userImg ? (
+                <Image
+                  src={userInfo.myInfo.userImg}
+                  alt="user image"
+                  fill
+                  className="rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full rounded-full bg-slate-200 text-gray-700 flex items-center justify-center font-semibold text-lg border border-blue-500">
+                  {getFirstLetter(userInfo?.myInfo?.name || "")}
+                </div>
+              )}
+            </div>
+            <h3 className="text-sm text-black sm:block hidden">
+              {isLoading ? "..." : userInfo?.myInfo?.name}
+            </h3>
           </nav>
 
           <div ref={containerRef} className="relative">
@@ -100,7 +138,7 @@ export function SiteHeader() {
             </Button>
 
             {isNavPopupOpen && (
-              <Navpopup />
+              <Navpopup close={() => setIsNavPopupOpen(false)} />
             )}
           </div>
         </div>

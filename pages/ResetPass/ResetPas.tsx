@@ -15,7 +15,7 @@ const ResetPas = () => {
             <div className="w-full lg:w-1/2 h-full flex flex-col bg-white overflow-y-auto relative z-10">
                 <div className="absolute top-11 left-24 transform -translate-x-1/2 -translate-y-1/2 z-50">
                     <Image
-                        src="/icons/beitak main logo blue-01 png 1.svg"
+                        src="/icons/Beitak.svg"
                         loading="lazy"
                         alt="logo"
                         width={120}

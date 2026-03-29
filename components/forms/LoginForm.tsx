@@ -12,6 +12,7 @@ import { logIn, tempPassword } from "@/services/AuthApi";
 import { useAuthStore } from "@/store";
 import toast from "react-hot-toast";
 import { Spinner } from "../ui/spinner";
+import Link from "next/link";
 
 const loginSchema = z.object({
     email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -25,6 +26,15 @@ const LoginForm = () => {
     const setAuth = useAuthStore((s) => s.setAuth);
     const user = useAuthStore((s) => s.user);
 
+    const role = useAuthStore((s) => s.user?.role);
+    const roleLabels: Record<string, string> = {
+        superadmin: "Beitak",
+        subadmin: "Beitak",
+        subdeveloper: "Developer",
+        subuniversity: "University",
+    };
+
+    const displayRole = role ? (roleLabels[role.toLowerCase()] || role) : "";
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -96,7 +106,7 @@ const LoginForm = () => {
         <div className="flex h-full flex-col px-4 md:px-6 items-start justify-center gap-8 w-full max-w-md mx-auto">
             <div className="absolute top-4 left-4">
                 <Image
-                    src="/icons/beitak main logo blue-01 png 1.svg"
+                    src="/icons/Beitak.svg"
                     alt="logo"
                     width={120}
                     height={33}
@@ -106,7 +116,7 @@ const LoginForm = () => {
 
             <div className="flex flex-col gap-2">
                 <h1 className="text-3xl font-bold tracking-tight">
-                    <span className="text-blue-700">{user?.role}</span> Dashboard Login
+                    <span className="text-blue-700">{displayRole}</span> Dashboard Login
                 </h1>
                 <p className="text-sm text-muted-foreground font-light">
                     Access your management panel
@@ -167,15 +177,19 @@ const LoginForm = () => {
                             {errors.password.message}
                         </span>
                     )}
+                    <Link className="text-blue-700 text-sm cursor-pointer" href="/login/forgit-password">
+                        Forgot Password?
+                    </Link>
+
                 </div>
 
                 {/* SUBMIT */}
                 <button
                     type="submit"
                     disabled={loginMutation.isPending}
-                    className="w-full bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg disabled:opacity-70 flex items-center justify-center"
+                    className="w-full cursor-pointer bg-blue-700 hover:bg-blue-800 text-white py-3 rounded-lg disabled:opacity-70 flex items-center justify-center"
                 >
-                    {loginMutation.isPending ? <Spinner /> : "Sign In"}
+                    {loginMutation.isPending ? <Spinner /> : "Login"}
                 </button>
             </form>
         </div>

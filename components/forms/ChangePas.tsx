@@ -10,12 +10,13 @@ import { useAuthStore } from '@/store'
 import { toast } from "sonner"
 import { useRouter } from 'next/navigation';
 import { Spinner } from '../ui/spinner'
+import Image from 'next/image'
 
 const schema = z.object({
-    newPassword: z.string().min(8, "كلمة السر الجديدة يجب أن تكون 8 أحرف على الأقل"),
-    confirmPassword: z.string().min(1, "تأكيد كلمة السر مطلوب"),
+    newPassword: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
 }).refine((data) => data.newPassword === data.confirmPassword, {
-    message: "كلمات السر غير متطابقة",
+    message: "Passwords do not match",
     path: ["confirmpassword"],
 });
 
@@ -45,9 +46,8 @@ const ChangePas = () => {
                 confirmPassword: data.confirmPassword,
             }),
         onSuccess: (response) => {
-            toast.success("تم تغيير كلمة السر بنجاح");
+            toast.success("Password changed successfully");
             reset();
-            // Store new token data if provided by the endpoint securely
             if (response?.data?.token) {
                 setAuth({
                     user: { role: response.data.role },
@@ -56,12 +56,9 @@ const ChangePas = () => {
                     isTempPassword: false
                 });
             } else {
-                // If it doesn't return tokens but succeeds, just clear temp flag manually 
-                // However, since it's already using useAuthStore, the backend likely returns them.
                 useAuthStore.setState({ isTempPassword: false });
             }
 
-            // High performance navigation replacement to home after securing new password
             router.replace("/");
         },
         onError: (error: any) => {
@@ -75,14 +72,21 @@ const ChangePas = () => {
 
     return (
         <div className="flex h-full  flex-col items-start    justify-center gap-8 w-full max-w-md mx-auto">
-
+            <div className="absolute top-4 left-4">
+                <Image
+                    src="/icons/Beitak.svg"
+                    alt="logo"
+                    width={120}
+                    height={33}
+                    priority
+                />
+            </div>
             <div className="flex flex-col gap-2">
                 <h1 className="text-3xl font-bold tracking-tight">Dashboard Login</h1>
                 <p className="text-sm text-muted-foreground font-light">
                     Access your  management panel
                 </p>
             </div>
-
             <form className='flex flex-col gap-5 w-full' onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex flex-col gap-2">
                     <label htmlFor="newPassword" className="text-sm font-medium">New Password</label>

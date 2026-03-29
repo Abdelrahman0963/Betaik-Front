@@ -136,7 +136,6 @@ function Paymentform() {
                 <div className="w-55.75 h-11 font-medium text-[32px]">Payment Plans</div>
                 <div className="w-117.25 h-5 font-medium text-[16px] text-[#414A5B]">Manage all payment plans and special offers for your dorms.</div>
             </div>
-
             <div className="mt-7 px-5.25 py-8 flex flex-col gap-3 w-full h-152.75 border border-gray-200 rounded-[10px]">
                 <div className="text-[24px] font-medium text-[#191B1F]">Pricing & Payment</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
@@ -167,7 +166,6 @@ function Paymentform() {
                         {errors.price && <div className="text-red-500 text-sm mt-1">{errors.price}</div>}
                     </div>
                 </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                     <div className="flex flex-col w-full relative">
                         <label className="mb-2 text-sm font-medium">Payment Frequency</label>
