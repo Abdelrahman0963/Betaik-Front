@@ -55,6 +55,7 @@ export function SiteHeader() {
     return name ? name.charAt(0).toUpperCase() : "?"
   }
   console.log(userInfo)
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
   return (
     <header className="flex h-(--header-height) py-10 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[var(--header-height)]">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -69,12 +70,12 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           {userInfo?.myInfo?.companyImg ? (
             <Image
-              src={userInfo.myInfo.companyImg}
+              src={`${userInfo.myInfo.companyImg}`}
               alt="Company Logo"
               width={36}
               height={36}
               priority
-              className="rounded-full object-cover w-9 h-9"
+              className="rounded-full object-fill w-9 h-9"
             />
           ) : (
             <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-bold border border-blue-500">
@@ -107,7 +108,7 @@ export function SiteHeader() {
                   src={userInfo.myInfo.userImg}
                   alt="user image"
                   fill
-                  className="rounded-full object-cover"
+                  className="rounded-full object-fill"
                 />
               ) : (
                 <div className="w-full h-full rounded-full bg-slate-200 text-gray-700 flex items-center justify-center font-semibold text-lg border border-blue-500">

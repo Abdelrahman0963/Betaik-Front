@@ -19,9 +19,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 const AccountInfoForm = () => {
-
     const [mode, setMode] = useState<"separate" | "both">("separate")
-
     const {
         register,
         handleSubmit,
@@ -136,8 +134,9 @@ const AccountInfoForm = () => {
                                 </label>
                                 <input
                                     id="callphone"
+                                    placeholder="+0201000000000"
                                     {...register("callphone")}
-                                    className="border rounded-lg py-3 px-4 w-full outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
+                                    className="border rounded-lg px-4 py-2 w-full outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                                 />
                                 {errors.callphone && (
                                     <p className="text-red-500 text-sm">
@@ -151,8 +150,9 @@ const AccountInfoForm = () => {
                                 </label>
                                 <input
                                     id="whatsapp"
+                                    placeholder="+0201000000000"
                                     {...register("whatsapp")}
-                                    className="border rounded-lg py-3 px-4 w-full outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
+                                    className="border rounded-lg px-4 py-2 w-full outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                                 />
                                 {errors.whatsapp && (
                                     <p className="text-red-500 text-sm">

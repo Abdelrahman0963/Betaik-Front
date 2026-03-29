@@ -41,7 +41,7 @@ const Navpopup = ({ close }: { close: () => void }) => {
                             src={userInfo.myInfo.userImg}
                             alt="Profile Picture"
                             fill
-                            className="rounded-full object-cover"
+                            className="rounded-full object-fill"
                             loading='lazy'
                         />
                     ) : (
