@@ -24,7 +24,7 @@ const DormsCard = ({ data, isEmpty, onClick }: Props) => {
                 </div>
 
                 <Link
-                    href="/dorms-mgt/student-housing"
+                    href="/dorms-mgt/add-new-dorm"
                     className="cursor-pointer bg-[#8AAEFE] hover:bg-[#155DFC] text-sm py-2 px-4 rounded-md text-white text-center"
                 >
                     Post Property

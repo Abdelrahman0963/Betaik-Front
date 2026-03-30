@@ -3,10 +3,7 @@ import StudentsHousingFilters from "@/components/Filters/StudentsHousingFilters"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link";
 
-
-
 const DormsMgt = () => {
-
     return (
         <>
             <div className="flex flex-1 flex-col">

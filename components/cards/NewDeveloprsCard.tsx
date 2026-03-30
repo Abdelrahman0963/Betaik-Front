@@ -5,6 +5,8 @@ import React, { useState } from 'react'
 import { FiPlus, FiMoreVertical } from 'react-icons/fi'
 import CardCreatePopup from '../popupCards/cardCreatePopup'
 import { LuCalendarDays } from 'react-icons/lu'
+
+
 type Props = {
     type: "university" | "developer"
     data: any
@@ -12,8 +14,19 @@ type Props = {
     onClick?: () => void
 }
 
+const isValidUrl = (url: string | undefined | null): boolean => {
+    if (!url) return false;
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
 const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
+    const imgSrc = isValidUrl(data?.imgUrl) ? data.imgUrl : "/emptyLogo.svg";
 
     if (isEmpty) {
         return (
@@ -45,7 +58,7 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
         >
             <div className="flex items-center justify-between w-full">
                 <span className="px-4 py-1.5 bg-[#E8F8F0] text-[#1D9957] border border-[#B3ECCB] text-sm font-medium rounded-full">
-                    {data?.status || 'Unknown'}
+                    {data?.status || 'Active'}
                 </span>
                 <button
                     className="text-gray-500 hover:text-gray-700 z-10 cursor-pointer"
@@ -59,7 +72,7 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
             <div className="flex flex-col items-center justify-center  bg-[#F4F8FE] rounded-2xl gap-3 p-4">
                 <div className="w-[66px] h-[66px] bg-white rounded-full flex items-center justify-center border border-blue-100 shadow-sm p-2 overflow-hidden">
                     <Image
-                        src={data?.imgUrl || data?.logo || "/emptyLogo.svg"}
+                        src={imgSrc}
                         alt={data?.fullName || data?.name || 'Unknown'}
                         className="w-full h-full object-contain rounded-full"
                         loading="lazy"

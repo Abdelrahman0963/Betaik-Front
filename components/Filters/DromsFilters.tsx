@@ -1,3 +1,4 @@
+"use client"
 import { BiSearchAlt } from "react-icons/bi"
 import {
     Select,
@@ -9,11 +10,22 @@ import {
     SelectValue,
 } from "../ui/select"
 import { useState } from "react"
+import DormsCard from "../cards/DormsCard"
 type TabType = "All" | "Active" | "Draft"
+// Replace this with your actual data fetch (e.g. useQuery / props)
+const properties: any[] = []
+
 const DromsFilters = () => {
     const [searchText, setSearchText] = useState<string>("")
     const [activeTab, setActiveTab] = useState<TabType>("All")
     const [typeFilter, setTypeFilter] = useState<string>("Room Type")
+
+    const filteredProperties = properties.filter((p) => {
+        const matchesSearch = searchText === "" || p?.name?.toLowerCase().includes(searchText.toLowerCase())
+        const matchesTab = activeTab === "All" || p?.status === activeTab
+        const matchesType = typeFilter === "Room Type" || p?.roomType === typeFilter
+        return matchesSearch && matchesTab && matchesType
+    })
     return (
         <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full'>
             <div className="flex flex-col w-full">
@@ -70,6 +82,19 @@ const DromsFilters = () => {
                         </SelectContent>
                     </Select>
                 </div>
+            </div>
+            <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 mt-6">
+                {Array.from({ length: 6 }).map((_, i) => {
+                    const property = filteredProperties[i]
+                    return (
+                        <DormsCard
+                            key={i}
+                            isEmpty={!property}
+                            data={property ?? {}}
+                            onClick={() => { }}
+                        />
+                    )
+                })}
             </div>
         </div>
     )
