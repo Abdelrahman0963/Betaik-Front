@@ -12,6 +12,7 @@ import {
     SelectValue,
 } from "../ui/select"
 import StudentHousingCard from "../cards/StudentHousingCard"
+import { useDebounce } from "@/hooks/useDebounce"
 
 type TabType = "All" | "Active" | "Draft" | "Expired"
 
@@ -20,6 +21,9 @@ const StudentsHousingFilters = () => {
     const [genderFilter, setGenderFilter] = useState<string>("All Student Housing")
     const [searchText, setSearchText] = useState<string>("")
     const [properties, setProperties] = useState<any[]>([])
+
+    // تفعيل الـ debounce على نص البحث
+    const debouncedSearch = useDebounce(searchText, 500)
 
     useEffect(() => {
         const storedStudentsHousing = localStorage.getItem("studentHousingData")
@@ -34,9 +38,10 @@ const StudentsHousingFilters = () => {
         const genderMatch =
             genderFilter === "All Student Housing" || prop.gender === genderFilter
 
+        // استخدام debouncedSearch هنا بدلاً من searchText للفلترة
         const searchMatch =
-            !searchText ||
-            prop.name?.toLowerCase().includes(searchText.toLowerCase())
+            !debouncedSearch ||
+            prop.name?.toLowerCase().includes(debouncedSearch.toLowerCase())
 
         return tabMatch && genderMatch && searchMatch
     })

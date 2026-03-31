@@ -3,12 +3,18 @@ import React from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
 import NewDeveloprsCard from '../cards/NewDeveloprsCard'
+import { useDebounce } from '@/hooks/useDebounce'
 
 type TabType = "All" | "Active" | "Draft" | "Expired"
+
 const NewuniversityFilters = () => {
     const [activeTab, setActiveTab] = React.useState<TabType>("All")
     const [searchText, setSearchText] = React.useState<string>("")
     const [properties, setProperties] = React.useState<any[]>([])
+
+    // تفعيل الـ debounce على نص البحث
+    const debouncedSearch = useDebounce(searchText, 500)
+
     React.useEffect(() => {
         const storedStudentsHousing = localStorage.getItem("studentHousingData")
         if (storedStudentsHousing) {
@@ -19,13 +25,16 @@ const NewuniversityFilters = () => {
     const filteredProperties = properties.filter((prop) => {
         const tabMatch = activeTab === "All" || prop.state === activeTab
 
+        // استخدام debouncedSearch هنا بدلاً من searchText للفلترة
         const searchMatch =
-            !searchText ||
-            prop.name?.toLowerCase().includes(searchText.toLowerCase())
+            !debouncedSearch ||
+            prop.name?.toLowerCase().includes(debouncedSearch.toLowerCase())
 
         return tabMatch && searchMatch
     })
+
     const tabs: TabType[] = ["All", "Active", "Draft", "Expired"]
+
     return (
         <>
             <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full'>

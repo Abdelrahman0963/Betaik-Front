@@ -143,8 +143,6 @@ const DormForm = () => {
                 className="flex flex-col gap-6"
                 onSubmit={(e) => e.preventDefault()}
             >
-                {/* Student Housing */}
-
                 <div className="flex flex-col gap-2">
                     <label>Student Housing</label>
 

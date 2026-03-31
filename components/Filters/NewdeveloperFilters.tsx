@@ -4,11 +4,18 @@ import { BiSearchAlt } from 'react-icons/bi'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
 import NewDeveloprsCard from '../cards/NewDeveloprsCard'
 import { getDevelopers } from '@/services/AuthApi'
+import { useDebounce } from '@/hooks/useDebounce'
+
 type TabType = "All" | "Active" | "Draft" | "Expired"
+
 const NewdeveloperFilters = () => {
     const [activeTab, setActiveTab] = React.useState<TabType>("All")
     const [searchText, setSearchText] = React.useState<string>("")
     const [properties, setProperties] = React.useState<any[]>([])
+
+    // تفعيل الـ debounce على نص البحث
+    const debouncedSearch = useDebounce(searchText, 500)
+
     React.useEffect(() => {
         getDevelopers().then((res) => {
             console.log("Fetched Developers Data:", res.data)
@@ -22,13 +29,17 @@ const NewdeveloperFilters = () => {
         const tabMatch = activeTab === "All" || prop.state === activeTab
 
         const developerName = prop.name || prop.fullName || ""
+
+        // استخدام debouncedSearch هنا بدلاً من searchText للفلترة
         const searchMatch =
-            !searchText ||
-            developerName.toLowerCase().includes(searchText.toLowerCase())
+            !debouncedSearch ||
+            developerName.toLowerCase().includes(debouncedSearch.toLowerCase())
 
         return tabMatch && searchMatch
     })
+
     const tabs: TabType[] = ["All", "Active", "Draft", "Expired"]
+
     return (
         <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full'>
             <div className="flex flex-col w-full">
@@ -57,6 +68,7 @@ const NewdeveloperFilters = () => {
                             type="text"
                             placeholder="Search by name"
                             className="w-full h-full focus:outline-none p-2"
+                            // الـ input يظل مرتبط بـ searchText لعرض ما يكتبه المستخدم فوراً
                             value={searchText}
                             onChange={(e) => setSearchText(e.target.value)}
                         />

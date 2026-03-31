@@ -11,8 +11,9 @@ import {
 } from "../ui/select"
 import { useState } from "react"
 import DormsCard from "../cards/DormsCard"
+import { useDebounce } from "@/hooks/useDebounce"
+
 type TabType = "All" | "Active" | "Draft"
-// Replace this with your actual data fetch (e.g. useQuery / props)
 const properties: any[] = []
 
 const DromsFilters = () => {
@@ -20,12 +21,16 @@ const DromsFilters = () => {
     const [activeTab, setActiveTab] = useState<TabType>("All")
     const [typeFilter, setTypeFilter] = useState<string>("Room Type")
 
+    const debouncedSearch = useDebounce(searchText, 500)
+
+    // الفلترة الآن تعتمد على debouncedSearch وليس searchText مباشرة
     const filteredProperties = properties.filter((p) => {
-        const matchesSearch = searchText === "" || p?.name?.toLowerCase().includes(searchText.toLowerCase())
+        const matchesSearch = debouncedSearch === "" || p?.name?.toLowerCase().includes(debouncedSearch.toLowerCase())
         const matchesTab = activeTab === "All" || p?.status === activeTab
         const matchesType = typeFilter === "Room Type" || p?.roomType === typeFilter
         return matchesSearch && matchesTab && matchesType
     })
+
     return (
         <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full'>
             <div className="flex flex-col w-full">

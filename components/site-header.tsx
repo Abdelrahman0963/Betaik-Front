@@ -1,5 +1,4 @@
 "use client"
-
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Navpopup from "@/components/Navpopup"
@@ -7,6 +6,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import Image from "next/image"
 import React from "react"
 import { getUserInfo } from "@/services/AuthApi"
+import { useAuthStore } from "@/store/useAuthStore"
 import { useQuery } from "@tanstack/react-query"
 
 interface UserInfoResponse {
@@ -21,6 +21,7 @@ interface UserInfoResponse {
 export function SiteHeader() {
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false)
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const user = useAuthStore((state) => state.user);
 
   const { data: userInfo, isLoading } = useQuery<UserInfoResponse>({
     queryKey: ["myInfo"],
@@ -54,10 +55,8 @@ export function SiteHeader() {
   const getFirstLetter = (name: string) => {
     return name ? name.charAt(0).toUpperCase() : "?"
   }
-  console.log(userInfo)
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE;
   return (
-    <header className="flex h-(--header-height) py-10 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-[var(--header-height)]">
+    <header className="flex  py-7 px-2 h-20 md:h-28 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         <SidebarTrigger className="-ml-1" />
 
@@ -66,26 +65,42 @@ export function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
 
-        {/* عرض لوجو الشركة أو أول حرف */}
-        <div className="flex items-center gap-2">
-          {userInfo?.myInfo?.companyImg ? (
-            <Image
-              src={`${userInfo.myInfo.companyImg}`}
-              alt="Company Logo"
-              width={36}
-              height={36}
-              priority
-              className="rounded-full object-fill w-9 h-9"
-            />
-          ) : (
-            <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-bold border border-blue-500">
-              {getFirstLetter(userInfo?.myInfo?.companyName || "")}
-            </div>
-          )}
-          <h1 className="text-base font-medium sm:block hidden">
-            {isLoading ? "Loading..." : userInfo?.myInfo?.companyName}
-          </h1>
-        </div>
+        {(() => {
+          const role = user?.role?.toLowerCase();
+          if (role === "developer" || role === "university") {
+            return (
+              <div className=" items-center gap-2 sm:flex hidden">
+                {userInfo?.myInfo?.companyImg ? (
+                  <Image
+                    src={`${userInfo.myInfo.companyImg}`}
+                    alt="Company Logo"
+                    width={36}
+                    height={36}
+                    priority
+                    className="rounded-full object-fill w-9 h-9"
+                  />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-bold border border-blue-500">
+                    {getFirstLetter(userInfo?.myInfo?.companyName || "")}
+                  </div>
+                )}
+                <h1 className="text-base font-medium sm:block hidden">
+                  {isLoading ? "Loading..." : userInfo?.myInfo?.companyName}
+                </h1>
+              </div>
+            );
+          }
+          if (role === "superadmin") {
+            return (
+              <div className="flex flex-col items-start gap-1">
+                <h1 className="text-base font-bold sm:block hidden">Dashboard</h1>
+                <p className="text-muted-foreground ">Welcome back, Admin — {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+              </div>
+            );
+          }
+          return null;
+        })()}
+
 
         <div className="ml-auto flex items-center gap-2">
           <nav>
@@ -107,8 +122,9 @@ export function SiteHeader() {
                 <Image
                   src={userInfo.myInfo.userImg}
                   alt="user image"
+                  priority
                   fill
-                  className="rounded-full object-fill"
+                  className="rounded-full object-fill border border-blue-50"
                 />
               ) : (
                 <div className="w-full h-full rounded-full bg-slate-200 text-gray-700 flex items-center justify-center font-semibold text-lg border border-blue-500">
