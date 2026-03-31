@@ -84,17 +84,15 @@ const AddUniForm = () => {
                     <div className="w-full h-px bg-gray-300 "></div>
                     <div className="flex flex-col md:flex-row w-full justify-between items-center">
                         <h3 className="text-lg font-semibold">Contract Settings</h3>
-                        <RadioGroup onValueChange={(value) => setShowContract(value === "active")}>
-                            <div className="flex items-center gap-3">
-                                <RadioGroupItem value="active" id="r1" />
-                                <label htmlFor="r1">Active</label>
-                            </div>
-
-                            <div className="flex items-center gap-3">
-                                <RadioGroupItem value="Inactive" id="r2" />
-                                <label htmlFor="r2">Inactive</label>
-                            </div>
-                        </RadioGroup>
+                        <label className="inline-flex items-center cursor-pointer">
+                            <input
+                                checked={showContract}
+                                onChange={(e) => setShowContract(e.target.checked)}
+                                type="checkbox"
+                                className="sr-only peer"
+                            />
+                            <div className="relative w-9 h-5 bg-gray-300 peer-focus:outline-none  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                        </label>
                     </div>
                     {showContract && (
 
