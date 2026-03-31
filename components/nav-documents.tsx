@@ -38,13 +38,13 @@ export function NavDocuments({
           return (
             <Link href={item.url} key={item.name}>
               <SidebarMenuButton
-                className={`text-[16px] text-black font-medium ${isActive
-                  ? "bg-[#EEF6FC] px-3!  py-5! text-[#155DFC] rounded-2xl"
+                className={`text-[16px]   hover:text-[#155DFC]  text-black font-medium  ${isActive
+                  ? "bg-[#EEF6FC] px-3!  py-5! text-[#155DFC] hover:text-black rounded-2xl"
                   : ""
                   } px-3!  py-5! cursor-pointer`}
                 tooltip={item.name}
               >
-                {item.icon && <item.icon size={24} className={`${isActive ? "text-[#155DFC]" : "text-gray-600"}`} />}
+                {item.icon && <item.icon size={24} />}
                 <span>{item.name}</span>
               </SidebarMenuButton>
             </Link>
