@@ -16,7 +16,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -95,32 +94,17 @@ const Leads = () => {
     const [dormFilter, setDormFilter] = useState('all')
 
     const filteredLeads = leadsData.filter(lead => {
-        const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                             lead.email.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            lead.email.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesDorm = dormFilter === 'all' || lead.compound.includes(dormFilter);
         return matchesSearch && matchesDorm;
     });
 
-    const exportToExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(filteredLeads.map(lead => ({
-            "Student Name": lead.name,
-            "Email": lead.email,
-            "Compound": lead.compound,
-            "Property": lead.property,
-            "Contact Method": lead.contactMethod,
-            "Number": lead.number,
-            "Status": lead.status,
-            "Date": lead.date
-        })));
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
-        XLSX.writeFile(workbook, "Leads_Management.xlsx");
-    };
 
     const exportToPdf = () => {
         const doc = new jsPDF();
         doc.text("Leads Management", 14, 15);
-        
+
         const tableColumn = ["Name", "Compound", "Property", "Number", "Status", "Date"];
         const tableRows = filteredLeads.map(lead => [
             lead.name,
@@ -146,16 +130,16 @@ const Leads = () => {
             <div className="flex flex-col gap-6 px-8 pt-10 lg:px-12 lg:pt-12">
                 <div className="flex items-start justify-between w-full">
                     <h1 className="text-[32px] font-bold text-[#1A1A1A]">Leads Management</h1>
-                    
+
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <button className="flex items-center gap-2 bg-[#155DFC] hover:bg-[#104ec8] transition-colors text-white px-6 py-2.5 rounded-lg font-semibold text-[14px]">
-                                <LogOut size={18} className="rotate-[-90deg] -ml-1 mt-0.5" /> 
+                                <LogOut size={18} className="rotate-[-90deg] -ml-1 mt-0.5" />
                                 Export
                             </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-40 bg-white shadow-lg rounded-lg border-[#E5E7EB]">
-                            <DropdownMenuItem className="cursor-pointer font-medium py-2.5" onClick={exportToExcel}>
+                            <DropdownMenuItem className="cursor-pointer font-medium py-2.5" >
                                 Export as Excel
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer font-medium py-2.5" onClick={exportToPdf}>
@@ -180,7 +164,7 @@ const Leads = () => {
                             className="w-full pl-10 pr-4 h-[46px] border border-[#E5E7EB] rounded-lg text-[14px] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#155DFC] focus:ring-1 focus:ring-[#155DFC] transition-colors"
                         />
                     </div>
-                    
+
                     {/* Dorm Filter */}
                     <div className="relative w-full md:w-[40%]">
                         <Select value={dormFilter} onValueChange={setDormFilter}>
@@ -227,8 +211,8 @@ const Leads = () => {
                         filteredLeads.map((lead, index) => {
                             const isLast = index === filteredLeads.length - 1;
                             return (
-                                <div 
-                                    key={lead.id} 
+                                <div
+                                    key={lead.id}
                                     className={`grid grid-cols-[1.5fr_1.2fr_1.2fr_1fr_1fr_0.8fr_0.7fr] items-center px-6 py-5 ${!isLast ? 'border-b border-[#E5E7EB]' : ''} hover:bg-gray-50 transition-colors`}
                                 >
                                     {/* Student Name */}
@@ -266,11 +250,10 @@ const Leads = () => {
 
                                     {/* Status */}
                                     <div className="flex justify-center">
-                                        <span className={`px-4 py-1 rounded-full text-[12px] font-bold ${
-                                            lead.status === "New" 
-                                            ? "bg-[#EBF2FF] text-[#155DFC]" 
-                                            : "bg-[#F3F4F6] text-[#6B7280]"
-                                        }`}>
+                                        <span className={`px-4 py-1 rounded-full text-[12px] font-bold ${lead.status === "New"
+                                                ? "bg-[#EBF2FF] text-[#155DFC]"
+                                                : "bg-[#F3F4F6] text-[#6B7280]"
+                                            }`}>
                                             {lead.status}
                                         </span>
                                     </div>

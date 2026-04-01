@@ -18,7 +18,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
@@ -87,21 +86,12 @@ const Logs = () => {
         return matchesSearch && matchesType;
     });
 
-    const exportToExcel = () => {
-        const worksheet = XLSX.utils.json_to_sheet(filteredLogs.map(log => ({
-            Action: log.action,
-            Time: log.time,
-            Type: log.type
-        })));
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Logs");
-        XLSX.writeFile(workbook, "System_Logs.xlsx");
-    };
+
 
     const exportToPdf = () => {
         const doc = new jsPDF();
         doc.text("System Logs", 14, 15);
-        
+
         const tableColumn = ["Action", "Time", "Type"];
         const tableRows = filteredLogs.map(log => [
             log.action,
@@ -140,7 +130,7 @@ const Logs = () => {
                             </button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-40 bg-white shadow-lg rounded-lg border-[#E5E7EB]">
-                            <DropdownMenuItem className="cursor-pointer font-medium py-2.5" onClick={exportToExcel}>
+                            <DropdownMenuItem className="cursor-pointer font-medium py-2.5" >
                                 Export as Excel
                             </DropdownMenuItem>
                             <DropdownMenuItem className="cursor-pointer font-medium py-2.5" onClick={exportToPdf}>
