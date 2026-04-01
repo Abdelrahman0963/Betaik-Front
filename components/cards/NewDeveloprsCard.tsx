@@ -6,7 +6,6 @@ import { FiPlus, FiMoreVertical } from 'react-icons/fi'
 import CardCreatePopup from '../popupCards/cardCreatePopup'
 import { LuCalendarDays } from 'react-icons/lu'
 
-
 type Props = {
     type: "university" | "developer"
     data: any
@@ -15,18 +14,17 @@ type Props = {
 }
 
 const isValidUrl = (url: string | undefined | null): boolean => {
-    if (!url) return false;
-    try {
-        new URL(url);
-        return true;
-    } catch {
-        return false;
-    }
+    if (!url || typeof url !== 'string') return false;
+    // التحقق لو الرابط بيبدأ بـ http أو بيبدأ بـ / (مسار محلي)
+    return url.startsWith('http') || url.startsWith('/');
 };
 
 const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
-    const imgSrc = isValidUrl(data?.imgUrl) ? data.imgUrl : "/emptyLogo.svg";
+
+    // تجهيز الاسم وأول حرف منه
+    const displayName = data?.fullName || data?.name || 'Unknown';
+    const firstLetter = displayName.charAt(0).toUpperCase();
 
     if (isEmpty) {
         return (
@@ -37,7 +35,7 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
 
                 <div className="flex flex-col items-center gap-2">
                     <p className="text-sm font-semibold">Create developer company accounts</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 text-center">
                         Get started by creating your first company accounts
                     </p>
                 </div>
@@ -51,6 +49,7 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
             </div>
         )
     }
+
     return (
         <div
             onClick={onClick}
@@ -69,19 +68,27 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
             </div>
             <div className="w-full h-px bg-gray-50 my-2"></div>
 
-            <div className="flex flex-col items-center justify-center  bg-[#F4F8FE] rounded-2xl gap-3 p-4">
+            <div className="flex flex-col items-center justify-center bg-[#F4F8FE] rounded-2xl gap-3 p-4">
                 <div className="w-[66px] h-[66px] bg-white rounded-full flex items-center justify-center border border-blue-100 shadow-sm p-2 overflow-hidden">
-                    <Image
-                        src={imgSrc}
-                        alt={data?.fullName || data?.name || 'Unknown'}
-                        className="w-full h-full object-contain rounded-full"
-                        loading="lazy"
-                        width={100}
-                        height={100}
-                    />
+                    {/* التحقق من الصورة */}
+                    {isValidUrl(data?.imgUrl) ? (
+                        <Image
+                            src={data.imgUrl}
+                            alt={displayName}
+                            className="w-full h-full object-contain rounded-full"
+                            loading="lazy"
+                            width={100}
+                            height={100}
+                        />
+                    ) : (
+                        // عرض أول حرف لو مفيش صورة
+                        <div className="flex items-center justify-center w-full h-full bg-[#7A73F4] text-white text-2xl font-bold rounded-full">
+                            {firstLetter}
+                        </div>
+                    )}
                 </div>
                 <h3 className="font-bold text-[17px] text-gray-900 text-center">
-                    {data?.fullName || data?.name || 'Unknown'}
+                    {displayName}
                 </h3>
             </div>
 
@@ -99,7 +106,7 @@ const NewDeveloprsCard = ({ type, data, isEmpty, onClick }: Props) => {
 
             {showPopup && (
                 <div
-                    className="fixed  inset-0 z-50 flex items-center justify-center bg-black/50 cursor-default "
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 cursor-default"
                     onClick={(e) => { e.stopPropagation(); setShowPopup(false); }}
                 >
                     <div onClick={(e) => e.stopPropagation()}>

@@ -32,7 +32,7 @@ export function NavMain({
               <Link href={item.url} key={item.title}>
                 <SidebarMenuButton
                   className={`text-[16px]   hover:text-[#155DFC]  text-black font-medium  ${isActive
-                    ? "bg-[#EEF6FC] px-3!  py-5! text-[#155DFC] hover:text-black rounded-2xl"
+                    ? "bg-[#EEF6FC] px-3!  py-5! text-[#155DFC]  rounded-2xl"
                     : ""
                     } px-3!  py-5! cursor-pointer`}
                   tooltip={item.title}

@@ -84,6 +84,10 @@ export const getDevelopers = () => {
     return api.get(`${API_BASE_URL}api/Admin/Developers/GetAll`)
 }
 
+export const getUniversities = () => {
+    return api.get(`${API_BASE_URL}api/Admin/Universities/GetAll`)
+}
+
 export const deleteDeveloper = (id: string) => {
     return api.delete(`${API_BASE_URL}api/Admin/Developers/Delete/${id}`)
 }
@@ -103,4 +107,12 @@ export const changeYourPassword = (data: ChangeYourPassword) => {
 
 export const getUserInfo = () => {
     return api.get(`${API_BASE_URL}api/Dashboard/DashboardAuth/Get-My-Info`)
+}
+
+
+type PostLogoImage = {
+    img: File
+}
+export const postlogoImage = (data: PostLogoImage) => {
+    return api.post(`${API_BASE_URL}api/Dashboard/DashboardAuth/Change-organization-logo`, data)
 }

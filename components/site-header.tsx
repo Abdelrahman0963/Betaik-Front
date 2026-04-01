@@ -93,8 +93,8 @@ export function SiteHeader() {
           if (role === "superadmin") {
             return (
               <div className="flex flex-col items-start gap-1">
-                <h1 className="text-base font-bold sm:block hidden">Dashboard</h1>
-                <p className="text-muted-foreground ">Welcome back, Admin — {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+                <h1 className="text-base font-bold">Dashboard</h1>
+                <p className="text-muted-foreground sm:block hidden ">Welcome back, Admin — {new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
               </div>
             );
           }

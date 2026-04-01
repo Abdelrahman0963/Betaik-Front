@@ -3,10 +3,7 @@ import Settings from "@/pages/settings/settings";
 function Page() {
     return (
         <div className="">
-
-
             <Settings />
-
         </div>
     );
 }

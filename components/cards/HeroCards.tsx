@@ -17,12 +17,12 @@ const cardsData: CardData[] = [
         data: "+3 this month"
     }, {
         title: "Listing Limit",
-        icon: "/icons/line-chart-up-02.svg",
+        icon: "/icons/Component 3.svg",
         value: 50,
         data: "30% used"
     }, {
         title: "Profile Views",
-        icon: "/icons/Icon (2).svg",
+        icon: "/icons/eye.svg",
         value: 2847,
         data: "+20 this month"
     }, {
@@ -49,7 +49,7 @@ const HeroCards = () => {
                     <div className="flex flex-col items-start justify-center">
                         {/* 🚀 تم تغيير <nav> إلى <div> لأنه ليس قائمة روابط */}
                         <div className="flex flex-col gap-3">
-                            <h2 className="font-semibold mb-2 text-gray-600 transition-colors duration-300 group-hover:text-white">
+                            <h2 className="font-normal mb-2 text-gray-600 transition-colors duration-300 group-hover:text-white">
                                 {card.title}
                             </h2>
 

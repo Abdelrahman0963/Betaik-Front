@@ -1,7 +1,7 @@
+import Analytics from "@/pages/Analytics/Analytics"
+
 const page = () => {
-    return (
-        <div>Analytics</div>
-    )
+    return <Analytics />
 }
 
 export default page

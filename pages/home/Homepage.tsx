@@ -3,6 +3,7 @@ import { useAuthStore } from "@/store"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { FaPlus } from "react-icons/fa"
 
 const RecentActivity = dynamic(() => import("@/components/cards/RecentActivity"), { ssr: false })
 const ChartAreaInteractive = dynamic(() => import("@/components/graph/ChartAreaInteractive").then(mod => mod.ChartAreaInteractive), { ssr: false })
@@ -26,7 +27,6 @@ export default function Homepage() {
             <div className="px-4 lg:px-6 flex md:flex-row flex-col gap-6 w-full items-center justify-between">
 
               <div className="md:flex hidden md:flex-col flex-row justify-between items-start">
-                {/* تحويل الروول لحروف صغيرة لتجنب أخطاء الكتابة */}
                 {(() => {
                   const role = user?.role?.toLowerCase();
 
@@ -34,9 +34,7 @@ export default function Homepage() {
                     return (
                       <>
                         <h1 className="text-md font-semibold tracking-tight md:text-3xl">Dashboard</h1>
-                        {role === "university" && (
-                          <p className="text-muted-foreground">Welcome back, Admin</p>
-                        )}
+                        <p className="text-muted-foreground">Welcome back, Admin</p>
                       </>
                     );
                   }
@@ -53,27 +51,6 @@ export default function Homepage() {
                       </>
                     );
                   }
-
-                  return null; // في حالة مفيش يوزر أو روول مختلفة
-                })()}
-              </div>
-              <div className="flex items-center justify-between">
-                {(() => {
-                  const role = user?.role?.toLowerCase();
-
-                  if (role === "university") {
-                    return (
-                      <div className="flex items-center gap-4">
-                        <Link href="/accountInfo" className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1 cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]">
-                          <span className="text-2xl">+</span> Add New Dorm
-                        </Link>
-                        <Link href="/paymentPlan" className="sm:px-4 sm:text-[1rem] text-sm sm:py-2 px-2 py-1 cursor-pointer flex items-center gap-3 font-light text-white rounded-lg bg-[#155DFC] hover:bg-[#8AAEFE]">
-                          <span className="text-2xl">+</span> Add Payment Plan
-                        </Link>
-                      </div>
-                    );
-                  }
-
                   return null;
                 })()}
               </div>
