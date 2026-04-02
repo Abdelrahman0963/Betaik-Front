@@ -1,4 +1,5 @@
 "use client"
+import PlatformCard from "@/components/cards/PlatformCard"
 import { useAuthStore } from "@/store"
 import dynamic from "next/dynamic"
 import Link from "next/link"
@@ -56,11 +57,33 @@ export default function Homepage() {
               </div>
             </div>
 
-            <HeroCards />
-            <div className="px-4 lg:px-4 flex gap-4 items-start w-full">
-              <ChartAreaInteractive />
-              <RecentActivity />
-            </div>
+            {(() => {
+              const role = user?.role?.toLowerCase();
+
+              if (role === "developer" || role === "university") {
+                return (
+                  <>
+                    <HeroCards />
+                    <div className="px-4 lg:px-4 flex gap-4 items-start w-full">
+                      <ChartAreaInteractive />
+                      <RecentActivity />
+                    </div>
+                  </>
+                );
+              }
+
+              if (role === "superadmin") {
+                return (
+                  <>
+                    <PlatformCard />
+                    <div className="px-4 lg:px-4 flex gap-4 items-start w-full">
+                      <ChartAreaInteractive />
+                    </div>
+                  </>
+                );
+              }
+              return null;
+            })()}
           </div>
         </div>
       </div>

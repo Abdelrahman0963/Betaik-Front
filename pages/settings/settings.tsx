@@ -14,7 +14,6 @@ function Settings() {
                 <textarea
                     className="w-full h-12 border border-[#D0DFFE] rounded-[10px] bg-[#FAFCFF] text-[#3D414D] px-4 py-2 resize-none focus:outline-none"
                     placeholder="Stanford University"></textarea>
-
                 <div className="mt-4 text-[16px] font-medium text-[#191B1F]">Area</div>
                 <textarea
                     placeholder="Enter Area"
@@ -24,7 +23,6 @@ function Settings() {
                     <div className="w-full sm:w-38 h-12 border border-gray-200 cursor-pointer text-[#191B1F] flex items-center justify-center text-[16px] rounded-[14px]">Cancel</div>
                     <div className="w-full sm:w-38 h-12 cursor-pointer hover:bg-[#155DFC]/90 bg-[#155DFC] text-white flex items-center justify-center text-[16px] rounded-[14px]">Save Change</div>
                 </div>
-
                 <div className="mt-4 border border-gray-200 w-full"></div>
 
                 <div className="mt-3 text-[20px] font-medium text-[#191B1F]">Account Information</div>
