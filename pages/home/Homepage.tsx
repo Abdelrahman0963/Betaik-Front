@@ -31,7 +31,7 @@ export default function Homepage() {
                 {(() => {
                   const role = user?.role?.toLowerCase();
 
-                  if (role === "developer" || role === "university" || role === "supuniversity" || role === "supdeveloper") {
+                  if (role === "developer" || role === "university" || role === "subuniversity" || role === "subdeveloper") {
                     return (
                       <>
                         <h1 className="text-md font-semibold tracking-tight md:text-3xl">Dashboard</h1>
@@ -60,7 +60,7 @@ export default function Homepage() {
             {(() => {
               const role = user?.role?.toLowerCase();
 
-              if (role === "developer" || role === "university") {
+              if (role === "developer" || role === "university" || role === "subuniversity" || role === "subdeveloper") {
                 return (
                   <>
                     <HeroCards />
@@ -72,7 +72,7 @@ export default function Homepage() {
                 );
               }
 
-              if (role === "superadmin") {
+              if (role === "superadmin" || role === "supadmin") {
                 return (
                   <>
                     <PlatformCard />
