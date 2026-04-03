@@ -28,7 +28,7 @@ function Page() {
                         </div>
 
                         {open && (
-                            <div className="absolute top-14 left-0 h-42 w-full flex flex-col px-5 rounded-xl shadow-[0_1px_2px_0_rgba(0,0,0,0.05)] bg-white z-10">
+                            <div className="absolute top-14 left-0 h-42 w-full flex flex-col px-5 rounded-xl  shadow-lg bg-white z-10">
                                 {options.map((option, index) => {
                                     const isSelected = selected === option;
 
@@ -52,7 +52,13 @@ function Page() {
                         )}
                     </div>
 
-                    <div className="mt-12 md:mt-60 text-[#344054] text-[16px] font-medium mb-4">Placeholder Options</div>
+                    <div
+                        className={`
+        text-[#344054] text-[16px] font-medium mb-4 transition-all duration-300
+        ${open ? "mt-50" : "mt-6"}
+    `}>
+                        Placeholder Options
+                    </div>
 
                     <div className="h-38.5 border border-[#E4E7EC] rounded-lg px-3.5 py-2.5">
                         <textarea
@@ -65,9 +71,9 @@ function Page() {
 
                     <div
                         onClick={() => {
-                            if (!message.trim()) return; 
+                            if (!message.trim()) return;
                             setShowModal(true);
-                            setMessage(""); 
+                            setMessage("");
                         }}
                         className={`mt-6 w-full h-12 rounded-lg flex items-center justify-center transition
     ${message.trim() ? "bg-[#155DFC] cursor-pointer hover:bg-[#155DFC]/90" : "bg-[#155DFC]/50 cursor-not-allowed"}`}>

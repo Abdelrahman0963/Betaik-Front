@@ -84,6 +84,10 @@ export const getDevelopers = () => {
     return api.get(`${API_BASE_URL}api/Admin/Developers/GetAll`)
 }
 
+export const getDeveloperById = (id: string) => {
+    return api.get(`${API_BASE_URL}/api/Admin/Developers/GetById/${id}`)
+}
+
 export const getUniversities = () => {
     return api.get(`${API_BASE_URL}api/Admin/Universities/GetAll`)
 }

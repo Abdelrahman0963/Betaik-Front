@@ -47,11 +47,12 @@ const NewuniversityFilters = () => {
                     {tabs.map((tab) => (
                         <div
                             key={tab}
-                            className={`text-sm cursor-pointer transition px-3 py-2 rounded-lg ${activeTab === tab ? "text-gray-700 font-medium bg-white" : "text-gray-500"
+                            className={`text-sm cursor-pointer flex items-center gap-2 transition px-3 py-2 rounded-lg ${activeTab === tab ? "text-gray-700 font-medium bg-white" : "text-gray-500"
                                 }`}
                             onClick={() => setActiveTab(tab)}
                         >
-                            {tab}
+                            <span>{tab}</span>
+                            {tab.length}
                         </div>
                     ))}
                 </div>

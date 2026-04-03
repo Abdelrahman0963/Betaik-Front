@@ -12,6 +12,8 @@ type TabType = "All" | "Active" | "Draft" | "Expired"
 const NewdeveloperFilters = () => {
     const [activeTab, setActiveTab] = React.useState<TabType>("All")
     const [searchText, setSearchText] = React.useState<string>("")
+    // 1. حالة تخزين الشركة المختارة (القيمة الافتراضية "all")
+    const [selectedCompanyName, setSelectedCompanyName] = React.useState<string>("all")
 
     const debouncedSearch = useDebounce(searchText, 500)
 
@@ -20,17 +22,29 @@ const NewdeveloperFilters = () => {
         queryFn: getDevelopers,
     })
 
-    const allDevelopers = developersData?.data || [];
+    // ريسبونس الـ API بتاعك عبارة عن array مباشرة أو موجود جوه data
+    const allDevelopers = developersData?.data || developersData || [];
 
+    // 2. استخراج أسماء الشركات (fullName) بدون تكرار
+    const companies = Array.from(
+        new Set(allDevelopers.map((dev: any) => dev.fullName).filter(Boolean))
+    ) as string[];
+
+    // 3. منطق الفلترة المحدث
     const filteredProperties = allDevelopers.filter((prop: any) => {
+        // فلترة التاب (لو عندك حقل state في الـ API)
         const tabMatch = activeTab === "All" || prop.state === activeTab
-        const developerName = prop.fullName || prop.name || ""
+
+        // فلترة البحث بالاسم
+        const developerName = prop.fullName || ""
         const searchMatch = !debouncedSearch || developerName.toLowerCase().includes(debouncedSearch.toLowerCase())
-        return tabMatch && searchMatch
+
+        // فلترة السلكت (الشركة)
+        const companyMatch = selectedCompanyName === "all" || prop.fullName === selectedCompanyName
+
+        return tabMatch && searchMatch && companyMatch
     })
 
-    // --- المنطق الجديد للحساب ---
-    // إذا كان العدد أقل من 6، نكملهم لـ 6. إذا كان 6 أو أكثر، نعرضهم كلهم + 1 إضافي.
     const totalCardsToShow = filteredProperties.length < 6
         ? 6
         : filteredProperties.length + 1;
@@ -41,16 +55,17 @@ const NewdeveloperFilters = () => {
         <div className='flex flex-col gap-4 py-4 md:gap-6 md:py-6 w-full'>
             <div className="flex flex-col w-full">
                 <div className="flex gap-3 w-fit bg-gray-50 p-1 rounded-lg">
-                    {(tabs).map((tab) => (
+                    {tabs.map((tab) => (
                         <div
                             key={tab}
-                            className={`text-sm cursor-pointer transition px-3 py-2 rounded-lg ${activeTab === tab
+                            className={`text-sm cursor-pointer flex items-center gap-2 transition px-3 py-2 rounded-lg ${activeTab === tab
                                 ? "text-gray-700 font-medium bg-white"
                                 : "text-gray-500"
                                 }`}
                             onClick={() => setActiveTab(tab)}
                         >
-                            {tab}
+                            <span> {tab}</span>
+                            {tab.length}
                         </div>
                     ))}
                 </div>
@@ -68,15 +83,23 @@ const NewdeveloperFilters = () => {
                             onChange={(e) => setSearchText(e.target.value)}
                         />
                     </div>
-                    <Select onValueChange={() => { }} value={""}>
+
+                    {/* 4. السلكت بعد التعديل */}
+                    <Select
+                        onValueChange={(value) => setSelectedCompanyName(value)}
+                        value={selectedCompanyName}
+                    >
                         <SelectTrigger className="w-full items-center flex gap-2.5 border border-gray-200 rounded-[10px]">
-                            <SelectValue placeholder="developer company" />
+                            <SelectValue placeholder="Select Developer" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>developer company</SelectLabel>
-                                {["developer company", "developer company1", "developer company2"].map((item) => (
-                                    <SelectItem key={item} value={item}>{item}</SelectItem>
+                                <SelectLabel>Developers</SelectLabel>
+                                <SelectItem value="all">All Developers</SelectItem>
+                                {companies.map((name) => (
+                                    <SelectItem key={name} value={name}>
+                                        {name}
+                                    </SelectItem>
                                 ))}
                             </SelectGroup>
                         </SelectContent>
@@ -87,14 +110,13 @@ const NewdeveloperFilters = () => {
                     {isLoading ? (
                         <p className="col-span-full text-center">Loading...</p>
                     ) : (
-                        // نقوم بعمل Loop بناءً على العدد المحسوب (6 أو العدد الكلي + 1)
                         Array.from({ length: totalCardsToShow }).map((_, i) => {
                             const dev = filteredProperties[i];
                             return (
                                 <NewDeveloprsCard
                                     key={dev?.id || i}
                                     type="developer"
-                                    isEmpty={!dev} // إذا لم يوجد عنصر في هذا الـ index، اجعله كارد فارغ
+                                    isEmpty={!dev}
                                     data={dev ?? {}}
                                     onClick={() => { }}
                                 />

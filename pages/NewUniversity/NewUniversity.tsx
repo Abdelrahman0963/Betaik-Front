@@ -19,7 +19,7 @@ const NewUniversity = () => {
 
                                     <Link
                                         href="/newuniversity/newuni-form"
-                                        className="inline-flex items-center gap-3 px-3  py-2 text-lg font-medium text-white bg-blue-600 rounded-lg transition-all duration-300 hover:bg-blue-500 shadow-md hover:shadow-lg"
+                                        className="inline-flex items-center gap-3 px-3  py-2 md:px-4 md:py-3 text-lg font-medium text-white bg-blue-600 rounded-lg transition-all duration-300 hover:bg-blue-500 shadow-md hover:shadow-lg"
                                     >
                                         <nav className="flex items-center gap-2"> <FaPlus className='text-white text-sm' /> <p className='text-base'>Create University Account</p></nav>
                                     </Link>
