@@ -83,13 +83,6 @@ function PaymentPlan() {
                                     </div>
                                     <input type="text" placeholder="Search" className="w-full h-full focus:outline-none bg-transparent text-sm" />
                                 </div>
-
-                                {["All Statuses", "All Dorms"].map((text) => (
-                                    <div key={text} className="flex justify-between w-full md:w-[200px] lg:w-[240px] h-11 items-center border border-gray-200 rounded-lg px-4 cursor-pointer bg-background">
-                                        <div className="text-[14px] text-[#7F8595]">{text}</div>
-                                        <MdOutlineKeyboardArrowDown className="text-[#7F8595] text-[20px]" />
-                                    </div>
-                                ))}
                             </div>
 
                             <div className="w-full grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3 mt-6">
