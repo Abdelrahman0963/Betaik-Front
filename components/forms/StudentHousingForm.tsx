@@ -125,15 +125,15 @@ const StudentHousingForm = () => {
                 {/* Name */}
                 <div className="flex flex-col gap-2 w-full">
                     <label className="text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" {...register("name")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-200" />
+                    <input type="text" {...register("name")} className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10" />
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                 </div>
 
                 {/* Pattern Upload */}
                 <Pattern
                     key={patternKey}
-                    className="w-full"
-                    onFilesChange={(files) => setFiles(files)}
+                    className="w-full border border-blue-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
+                    onFilesChange={onFilesChange}
                     maxSize={10 * 1024 * 1024}
                     accept="image/*"
                     multiple
@@ -145,7 +145,7 @@ const StudentHousingForm = () => {
                 <div className="flex items-center justify-center gap-2 w-full mt-3">
                     <div className="flex flex-col gap-2 flex-1">
                         <label className="text-sm font-medium text-gray-700">Compound</label>
-                        <Select onValueChange={setCompound} value={compound ?? undefined}>
+                        <Select onValueChange={setCompound} value={compound ?? undefined} >
                             <SelectTrigger className="w-full border border-gray-200 rounded-[10px]">
                                 <SelectValue placeholder="Compound" />
                             </SelectTrigger>
@@ -210,7 +210,7 @@ const StudentHousingForm = () => {
                 {/* Description */}
                 <div className="flex flex-col gap-2 w-full">
                     <label className="text-sm font-medium text-gray-700">Description</label>
-                    <input type="text" {...register("Description")} className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-200" />
+                    <input type="text" {...register("Description")} className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10" />
                     {errors.Description && <p className="text-red-500">{errors.Description.message}</p>}
                 </div>
 

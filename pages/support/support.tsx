@@ -28,7 +28,7 @@ function Page() {
                         </div>
 
                         {open && (
-                            <div className="absolute top-14 left-0 h-42 w-full flex flex-col px-5 rounded-xl  shadow-lg bg-white z-10">
+                            <div className="absolute top-14 left-0 h-42 w-full flex flex-col px-5 rounded-xl border border-gray-400  shadow-lg bg-white z-10">
                                 {options.map((option, index) => {
                                     const isSelected = selected === option;
 

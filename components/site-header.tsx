@@ -55,8 +55,9 @@ export function SiteHeader() {
   const getFirstLetter = (name: string) => {
     return name ? name.charAt(0).toUpperCase() : "?"
   }
+
   return (
-    <header className="flex  py-7 px-2 h-20 md:h-28 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className={`flex sticky top-0 w-full bg-white  py-7 px-2 h-20  md:h-28 z-50 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)`}>
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         <SidebarTrigger className="-ml-1" />
 
@@ -67,7 +68,7 @@ export function SiteHeader() {
 
         {(() => {
           const role = user?.role?.toLowerCase();
-          if (role === "developer" || role === "university") {
+          if (role === "developer" || role === "university" || role === "subuniversity" || role === "subdeveloper") {
             return (
               <div className=" items-center gap-2 sm:flex hidden">
                 {userInfo?.myInfo?.companyImg ? (
@@ -90,7 +91,7 @@ export function SiteHeader() {
               </div>
             );
           }
-          if (role === "superadmin") {
+          if (role === "superadmin" || role === "supadmin") {
             return (
               <div className="flex flex-col items-start gap-1">
                 <h1 className="text-base font-bold">Dashboard</h1>

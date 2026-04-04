@@ -155,7 +155,7 @@ const DormForm = () => {
 
                             <input
                                 readOnly
-                                className="w-full outline-none text-sm bg-transparent"
+                                className="w-full"
                                 placeholder="Select dorm"
                                 value={Object.keys(selectedDorms)
                                     .filter((k) => selectedDorms[k])
@@ -195,7 +195,7 @@ const DormForm = () => {
 
                     <input
                         {...register("dorm")}
-                        className="border bg-blue-100/10  hover:bg-blue-100/20 border-blue-200 rounded-[10px] py-2 px-4"
+                        className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                     />
                 </div>
 
@@ -206,7 +206,7 @@ const DormForm = () => {
 
                     <input
                         {...register("Description")}
-                        className="border bg-blue-100/10  hover:bg-blue-100/20 border-blue-200 rounded-[10px] py-2 px-4"
+                        className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                     />
                 </div>
 
@@ -216,7 +216,7 @@ const DormForm = () => {
                     <label>Photo Upload</label>
 
                     <Pattern
-                        className="w-full bg-blue-100/10  hover:bg-blue-100/20"
+                        className="w-full"
                         onFilesChange={onFilesChange}
                         maxSize={10 * 1024 * 1024}
                         accept="image/*"
@@ -248,7 +248,7 @@ const DormForm = () => {
                             <input
                                 placeholder="Price"
                                 {...register("price")}
-                                className="border border-blue-200 bg-blue-100/10  hover:bg-blue-100/20 rounded-[10px] py-2 px-4"
+                                className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                             />
 
                             <div className="flex gap-4">
@@ -286,7 +286,7 @@ const DormForm = () => {
                                 <input
                                     readOnly
                                     placeholder="Select payment plan"
-                                    className="w-full bg-blue-100/10  hover:bg-blue-100/20 outline-none ml-2 cursor-pointer"
+                                    className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10"
                                     value={selectedPlans.map((p) => p.planName).join(", ")}
                                     onClick={() => setOpenPlans((prev) => !prev)}
                                 />
@@ -333,23 +333,22 @@ const DormForm = () => {
                     <label htmlFor="Location">Location</label>
                     <div className="flex md:flex-row flex-col items-center gap-4 w-full">
                         <div className="flex flex-col gap-2 w-full">
-                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <label className="text-sm" htmlFor="District">District</label>
                             <Select>
                                 <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
-                                    <SelectValue placeholder="Select Area" />
+                                    <SelectValue placeholder="Select District" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectLabel>Select Area</SelectLabel>
+                                        <SelectLabel>Select District</SelectLabel>
 
                                         {[
-                                            "New Cairo",
-                                            "6th of October",
-                                            "Emaar",
-                                            "Mansoura",
-                                            "Giza",
-                                            "Cairo",
-                                            "Alexandria",
+                                            "Al Rehab",
+                                            "Madinaty",
+                                            "Zayed",
+                                            "Nasr City",
+                                            "Maadi",
+                                            "Heliopolis",
                                         ].map((item) => (
                                             <SelectItem key={item} value={item}>
                                                 {item}
@@ -360,23 +359,22 @@ const DormForm = () => {
                             </Select>
                         </div>
                         <div className="flex flex-col gap-2 w-full">
-                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <label className="text-sm" htmlFor="District">District</label>
                             <Select>
                                 <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
-                                    <SelectValue placeholder="Select Area" />
+                                    <SelectValue placeholder="Select District" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectLabel>Select Area</SelectLabel>
+                                        <SelectLabel>Select District</SelectLabel>
 
                                         {[
-                                            "New Cairo",
-                                            "6th of October",
-                                            "Emaar",
-                                            "Mansoura",
-                                            "Giza",
-                                            "Cairo",
-                                            "Alexandria",
+                                            "Al Rehab",
+                                            "Madinaty",
+                                            "Zayed",
+                                            "Nasr City",
+                                            "Maadi",
+                                            "Heliopolis",
                                         ].map((item) => (
                                             <SelectItem key={item} value={item}>
                                                 {item}
@@ -410,23 +408,22 @@ const DormForm = () => {
                     </div>
                     <div className="flex md:flex-row flex-col items-center gap-4 w-full">
                         <div className="flex flex-col gap-2 w-full">
-                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <label className="text-sm" htmlFor="District">District</label>
                             <Select>
                                 <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
-                                    <SelectValue placeholder="Select Area" />
+                                    <SelectValue placeholder="Select District" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectLabel>Select Area</SelectLabel>
+                                        <SelectLabel>Select District</SelectLabel>
 
                                         {[
-                                            "New Cairo",
-                                            "6th of October",
-                                            "Emaar",
-                                            "Mansoura",
-                                            "Giza",
-                                            "Cairo",
-                                            "Alexandria",
+                                            "Al Rehab",
+                                            "Madinaty",
+                                            "Zayed",
+                                            "Nasr City",
+                                            "Maadi",
+                                            "Heliopolis",
                                         ].map((item) => (
                                             <SelectItem key={item} value={item}>
                                                 {item}
@@ -437,23 +434,22 @@ const DormForm = () => {
                             </Select>
                         </div>
                         <div className="flex flex-col gap-2 w-full">
-                            <label className="text-sm" htmlFor="Area">Area</label>
+                            <label className="text-sm" htmlFor="District">District</label>
                             <Select>
                                 <SelectTrigger className="w-full bg-blue-100/10  hover:bg-blue-100/20  items-center flex gap-2.5  border border-gray-200 rounded-[10px]">
-                                    <SelectValue placeholder="Select Area" />
+                                    <SelectValue placeholder="Select District" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectLabel>Select Area</SelectLabel>
+                                        <SelectLabel>Select District</SelectLabel>
 
                                         {[
-                                            "New Cairo",
-                                            "6th of October",
-                                            "Emaar",
-                                            "Mansoura",
-                                            "Giza",
-                                            "Cairo",
-                                            "Alexandria",
+                                            "Al Rehab",
+                                            "Madinaty",
+                                            "Zayed",
+                                            "Nasr City",
+                                            "Maadi",
+                                            "Heliopolis",
                                         ].map((item) => (
                                             <SelectItem key={item} value={item}>
                                                 {item}

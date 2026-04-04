@@ -189,7 +189,6 @@ const AccountInfoForm = () => {
                     >
                         Save Changes
                     </button>
-
                 </div>
             </form>
             <div className="w-full h-px bg-gray-300 mt-8"></div>

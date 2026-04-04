@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'react-icons', '@tabler/icons-react', '@mui/x-date-pickers'],
+  },
+
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
