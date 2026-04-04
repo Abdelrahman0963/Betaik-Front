@@ -52,48 +52,47 @@ function PaymentPlan() {
             <div className="@container/main flex flex-1 flex-col gap-2">
                 <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
                     <div className="px-4 lg:px-6 flex md:flex-row flex-col gap-6 w-full items-center justify-between ">
-                        <div className="px-4 sm:px-6 lg:px-0">
+                        <div className="flex flex-col gap-6 w-full items-start justify-between">
                             {/* Header */}
-                            <div className="flex flex-col gap-4">
-                                <div className="text-2xl sm:text-3xl font-medium">Payment Plans</div>
-                                <div className="text-sm sm:text-base font-medium text-[#414A5B]">Manage all payment plans and special offers for your dorms.</div>
+                            <div className="flex flex-col justify-between items-start">
+                                <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">Payment Plans</h1>
+                                <p className="text-muted-foreground mt-1">Manage all payment plans and special offers for your dorms.</p>
+                            </div>
 
-                                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mt-5">
-                                    <div className="flex gap-5">
-                                        {["Active", "Draft", "Expired"].map((tab) => (
-                                            <div key={tab} className={`cursor-pointer ${activeTab === tab ? "text-[#155DFC]" : "text-[#7F8595]"}`} onClick={() => setActiveTab(tab as TabType)}>
-                                                {tab}
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div
-                                        className="cursor-pointer w-full lg:w-auto h-12 items-center justify-center flex text-white gap-2.5 px-6 bg-[#155DFC] rounded-xl hover:bg-[#0F4BD8]"
-                                        onClick={() => router.push("/payment/paymentform")}>
-                                        <FaPlus />
-                                        <div className="font-medium">Add New Payment Plan</div>
-                                    </div>
+                            <div className="flex md:flex-row flex-col items-start md:items-center md:gap-2 gap-4 justify-between mt-2 w-full">
+                                <div className="flex gap-5 border-b pb-2 md:pb-0 md:border-b-0 w-full md:w-auto">
+                                    {["Active", "Draft", "Expired"].map((tab) => (
+                                        <div key={tab} className={`cursor-pointer pb-2 md:pb-0 ${activeTab === tab ? "text-[#155DFC] font-medium border-b-2 border-[#155DFC] md:border-b-0" : "text-[#7F8595]"}`} onClick={() => setActiveTab(tab as TabType)}>
+                                            {tab}
+                                        </div>
+                                    ))}
                                 </div>
+
+                                <button
+                                    className="inline-flex items-center gap-3 px-3 py-2 md:px-4 md:py-3 text-sm font-medium text-white bg-blue-600 rounded-lg transition-all duration-300 hover:bg-blue-500 shadow-md hover:shadow-lg w-full md:w-auto justify-center"
+                                    onClick={() => router.push("/payment/paymentform")}>
+                                    <FaPlus className="text-white text-sm" /> Add New Payment Plan
+                                </button>
                             </div>
 
                             {/* Filters */}
-                            <div className="flex flex-col lg:flex-row gap-4 mt-9">
-                                <div className="w-full lg:w-[500px] h-11 items-center flex gap-2.5 border border-gray-200 rounded-[10px]">
+                            <div className="flex flex-col md:flex-row gap-4 mt-2 w-full">
+                                <div className="w-full md:flex-1 h-11 items-center flex gap-2.5 border border-gray-200 rounded-lg bg-background">
                                     <div className="ml-4">
-                                        <BiSearchAlt className="text-[#7F8595]" />
+                                        <BiSearchAlt className="text-[#7F8595] text-lg" />
                                     </div>
-                                    <input type="text" placeholder="Search" className="w-full h-full focus:outline-none" />
+                                    <input type="text" placeholder="Search" className="w-full h-full focus:outline-none bg-transparent text-sm" />
                                 </div>
 
                                 {["All Statuses", "All Dorms"].map((text) => (
-                                    <div key={text} className="flex justify-between w-full lg:w-[320px] h-11 items-center border border-gray-200 rounded-[10px]">
-                                        <div className="text-[14px] ml-4 text-[#7F8595]">{text}</div>
-                                        <MdOutlineKeyboardArrowDown className="text-[#7F8595] mr-4 text-[20px]" />
+                                    <div key={text} className="flex justify-between w-full md:w-[200px] lg:w-[240px] h-11 items-center border border-gray-200 rounded-lg px-4 cursor-pointer bg-background">
+                                        <div className="text-[14px] text-[#7F8595]">{text}</div>
+                                        <MdOutlineKeyboardArrowDown className="text-[#7F8595] text-[20px]" />
                                     </div>
                                 ))}
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6 mt-4 w-full">
                                 {cards.map((c, index) =>
                                     c.type === "empty" ? (
                                         <div
