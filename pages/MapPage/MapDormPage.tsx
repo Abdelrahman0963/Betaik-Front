@@ -62,7 +62,7 @@ const MapDormPage = () => {
     if (!isMounted) return null; // Wait for hydration before rendering
 
     return (
-        <div className="flex flex-1 flex-col relative w-full h-full bg-[#FAFAFA]">
+        <div className="flex flex-1 flex-col relative w-full h-full ">
 
             {/* TOP HEADER */}
             <div className="flex items-start justify-between px-6 py-6 border-b border-gray-200 bg-white">

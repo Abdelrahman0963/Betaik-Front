@@ -128,7 +128,6 @@ const StudentHousingForm = () => {
                     <input type="text" {...register("name")} className="border border-blue-200 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-100/10" />
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                 </div>
-
                 {/* Pattern Upload */}
                 <Pattern
                     key={patternKey}
@@ -174,8 +173,6 @@ const StudentHousingForm = () => {
                         </Select>
                     </div>
                 </div>
-
-                {/* Area + District */}
                 <div className="flex items-center justify-center gap-2 w-full mt-3">
                     <div className="flex flex-col gap-2 flex-1">
                         <label className="text-sm font-medium text-gray-700">Area</label>

@@ -15,7 +15,6 @@ type Props = {
     isDrawingMode?: boolean;
     onPolygonComplete?: (paths: LatLng[]) => void;
 };
-
 export default function LocationMap({ location, markers, polygon, isDrawingMode, onPolygonComplete }: Props) {
     const mapRef = useRef<google.maps.Map | null>(null);
 
@@ -30,11 +29,9 @@ export default function LocationMap({ location, markers, polygon, isDrawingMode,
                 lng: path.getAt(i).lng()
             });
         }
-
         poly.setMap(null); // Remove the drawing overlay to let the state-driven Polygon take over
         onPolygonComplete(coords);
     }, [onPolygonComplete]);
-
     return (
         <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY!} libraries={["drawing"]}>
             <GoogleMap
@@ -95,4 +92,4 @@ export default function LocationMap({ location, markers, polygon, isDrawingMode,
             </GoogleMap>
         </LoadScript>
     );
-}
+}   
